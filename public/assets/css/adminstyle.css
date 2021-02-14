@@ -1,0 +1,540 @@
+/*  
+-variable css
+- preloader
+- admin main
+- custom file upload
+- custom modal
+- modal image/ icon
+*/
+
+/* ----------------------- variable css ---------------------- */
+html {
+  scroll-behavior: smooth;
+}
+::selection {
+  color: #fff;
+  background-color: #250abd;
+}
+
+::-moz-selection {
+  color: #fff;
+  background-color: #250abd;
+}
+.y-scroll {
+  overflow-y: scroll;
+}
+.x-scroll {
+  overflow-x: scroll;
+}
+
+.top-section {
+  padding-top: 90px;
+}
+
+.text-gold {
+  color: #f0c700;
+}
+
+.bg-gold {
+  background-color: #f0c700;
+}
+.list-style-none {
+  list-style: none;
+}
+.bg-grey {
+  background-color: #efefef;
+}
+.form-text-color {
+  color: #757575;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ----------------------------- preloader ---------------------------- */
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+}
+
+#loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  z-index: 1001;
+}
+
+#loader-logo {
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 46%;
+  background: url("assets/img/Ulogo.png") no-repeat center center;
+  z-index: 1001;
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #e74c3c;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+
+#loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #f9c922;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+#loader-wrapper .loader-section {
+  position: fixed;
+  top: 0;
+  width: 51%;
+  height: 100%;
+  background: rgb(252, 252, 252);
+  z-index: 1000;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+}
+
+#loader-wrapper .loader-section.section-left {
+  left: 0;
+}
+
+#loader-wrapper .loader-section.section-right {
+  right: 0;
+}
+
+/* Loaded */
+
+.loaded #loader-wrapper .loader-section.section-left {
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded #loader-wrapper .loader-section.section-right {
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded #loader {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper {
+  visibility: hidden;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+  -webkit-transition: all 0.3s 1s ease-out;
+  transition: all 0.3s 1s ease-out;
+}
+
+.no-js #loader-wrapper {
+  display: none;
+}
+/* ---------------------------- Adimin Main --------------------------------- */
+#content {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+#content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------- Custom file upload -------------------------- */
+
+.pro-change {
+  width: 100%;
+  max-width: 750px;
+  position: absolute;
+  text-align: center;
+  padding: 3.5em 0.75em;
+  border: 1px solid #e8e8e8;
+}
+
+.prochange-input {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.btn-choose-img {
+  text-align: center;
+  padding: 0.65em 0.75em;
+  background: #3fbf7f;
+  background: linear-gradient(to right, #1cceb0, #3fbf7f);
+  border: none;
+  outline: none;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 4px;
+  margin-top: 1rem;
+  transition: all 500ms;
+}
+.btn-choose-img:hover,
+.btn-choose-img:focus {
+  border-radius: 12px;
+  outline: none;
+  border: none;
+}
+
+.fileName,
+.fileName-icon {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: rgba(3, 3, 3, 0.3);
+}
+
+.preview,
+.preview-icon {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  background: #f2f2f2;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 2px solid #a8a8a8;
+  margin: 0 auto 6px auto;
+  cursor: pointer;
+}
+.preview img,
+.preview-icon img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+@media screen and (max-width: 768px) {
+  .pro-change {
+    border: none;
+  }
+}
+
+/* ------------------------------- Custom Modal -------------------------------------- */
+
+@-webkit-keyframes float {
+  0% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+  50% {
+    transform: translatey(-30px);
+    transform: translatex(20px);
+  }
+  100% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+}
+
+@-moz-keyframes float {
+  0% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+  50% {
+    transform: translatey(-30px);
+    transform: translatex(20px);
+  }
+  100% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+}
+
+@-o-keyframes float {
+  0% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+  50% {
+    transform: translatey(-30px);
+    transform: translatex(20px);
+  }
+  100% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+  50% {
+    transform: translatey(-30px);
+    transform: translatex(20px);
+  }
+  100% {
+    transform: translatey(0px);
+    transform: translatex(0px);
+  }
+}
+
+.pop-up {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(0.9);
+  -moz-transform: translate(-50%, -50%) scale(0.9);
+  -ms-transform: translate(-50%, -50%) scale(0.9);
+  -o-transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.9);
+  overflow-y: auto;
+  box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  z-index: 3000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pop-up .subcontent::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .pop-up {
+    width: 100%;
+    height: auto;
+    max-width: 900px;
+  }
+}
+
+.pop-up .subcontent {
+  width: 50%;
+  background-color: #ffffff;
+  margin: auto;
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .pop-up .subcontent {
+    width: 100%;
+  }
+}
+
+.pop-up .subcontent .subcontainer {
+  padding: 10px 80px 140px;
+  overflow-x: hidden;
+}
+
+@media (min-width: 568px) {
+  .pop-up .subcontent .subcontainer {
+    padding: 50px 20px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pop-up .subcontent .subcontainer {
+    padding: 70px 0px 90px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+.pop-up .subcontent .close {
+  position: absolute;
+  top: 9px;
+  right: 20px;
+  font-weight: 900;
+  font-size: 2.1rem;
+  letter-spacing: 0.05rem;
+  color: #2b2d31;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.pop-up .subcontent .close:hover {
+  cursor: pointer;
+  color: #808085;
+}
+
+.pop-up .subcontent .subcontainer h2 {
+  font-size: 1.8rem;
+  color: #3e4146;
+  letter-spacing: 0.02rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  font-family: "lato", sans-serif;
+}
+
+.pop-up.open {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -moz-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  -o-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ------------------------- Modal imag / icon --------------------- */
+
+#img-preview:hover,
+#icon-preview:hover {
+  opacity: 0.7;
+}
+
+.modal-img {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.modal-img::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content-img {
+  margin: auto;
+  display: block;
+  width: 50%;
+  max-width: 500px;
+}
+
+#caption-img,
+#caption-icon {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+.modal-content-img,
+#caption-img,
+#caption-icon {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.close-img,
+.close-icon {
+  position: absolute;
+  top: 34px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close-img:hover,
+.close-img:focus,
+.close-icon:hover,
+.close-icon:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 700px) {
+  .modal-content-img {
+    width: 80%;
+  }
+}

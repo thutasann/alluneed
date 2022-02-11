@@ -31,8 +31,8 @@
                 <i class="fas fa-globe"></i>
             </a>
         </li>
-        
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->   
+
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         <li class="nav-item dropdown no-arrow d-sm-none">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
@@ -63,8 +63,12 @@
         <li class="nav-item dropdown no-arrow">
 
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">John Doe</span>
-                <img class="img-profile rounded-circle" src="{{ asset('assets/img/user.jpg')}}">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                @if(Auth::user()->Image == NULL)
+                    <img class="img-profile rounded-circle" src="{{ asset('assets/img/user.jpg')}}">
+                @else
+                    <img class="img-profile rounded-circle" src="{{ asset('uploads/profile/'.Auth::user()->Image) }}">
+                @endif
             </a>
 
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

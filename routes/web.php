@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,28 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+// ADMIN ROUTES (isAdmin is from Kernel.php)
+Route::group(['middleware' => ['auth', 'isAdmin']], function (){
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
+});
+
+
+
+//
+Route::group(['middleware' => ['auth', 'isVendor']], function () {
+
+    Route::get('/vendor-dashboard', function () {
+        return view('vendor.dashboard');
+    });
 });

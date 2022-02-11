@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <title>
         @yield('title') | Admin Dashboard
     </title>
@@ -41,7 +41,7 @@
 <body id="page-top">
 
     <!----------------------------------------- START INCLUDES  -------------------------------------->
-    
+
 
     <div id="wrapper">
 
@@ -51,7 +51,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
         <div id="content">
-            
+
             @include('layouts.inc.adminnavbar')
 
             <div class="">
@@ -68,6 +68,31 @@
 
         </div>
 
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are sure you want to Logout.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    {{ __('logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 

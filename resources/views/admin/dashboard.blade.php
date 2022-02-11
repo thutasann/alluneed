@@ -18,7 +18,7 @@
         </div>
 
         <div id='printMe'>
-            
+
             <div class="row" id='printMe'>
 
                 <!-- Users -->
@@ -226,7 +226,7 @@
                 </div>
 
             </div>
-            
+
             <div class="row">
                 <!-- Area Chart -->
                 <div class="col-xl-8 col-lg-7">
@@ -302,7 +302,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 @endsection

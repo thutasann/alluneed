@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -56,7 +56,7 @@
     <!-- Start Page Loading -->
     {{-- <div id="loader-wrapper">
         <div id="loader">
-        <div id="loader-logo">      
+        <div id="loader-logo">
             <img src="{{ asset('assets/img/logo.png')}}" width='80px'>
         </div>
         </div>
@@ -74,6 +74,31 @@
         <i class="fas fa-chevron-up"></i>
     </span>
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title confirm-h5 font-weight-bold" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" style="outline:none;">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are sure you want to Logout.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary confirm-cancel" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    {{ __('logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('layouts.inc.front-footer')
 
 
@@ -81,9 +106,9 @@
 
     <!----------------------------------------- JAVA SCRIPT SECTION  -------------------------------------->
 
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    
+
     <!-- Custom JS -->
     <script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
 

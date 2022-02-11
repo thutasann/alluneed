@@ -158,7 +158,7 @@
 
 //     $('.delete_cart_data').click(function (e) {
 //         e.preventDefault();
-        
+
 //         var thisDeletearea = $(this);
 //         var product_id = $(this).closest(".cartpage").find('.product_id').val();
 
@@ -206,7 +206,7 @@
 // });
 
 
-// -------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
 
 
 // svg-up smooth scroll
@@ -219,112 +219,112 @@ svgUp.addEventListener("click", () => {
 });
 
 // Mega Menu Search filter (collection)
-// function colFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_col");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_col");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function colFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_col");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_col");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 // Mega Menu Search filter (category)
-// function cateFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_cate");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_cate");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function cateFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_cate");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_cate");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 // Mega Menu Search filter (brand)
-// function brdFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_brd");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_brd");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function brdFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_brd");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_brd");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 // Home & All collections Search filter
-// function hcolFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_hcol");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_hcol");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function hcolFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_hcol");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_hcol");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 // All New Arrivals Search filter (New Arrivals)
-// function hnewFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_hnew");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_hnew");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function hnewFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_hnew");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_hnew");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 // All Sellers Search filter (New Arrivals)
-// function hselFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("myInput_hsel");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("myUL_hsel");
-//     li = ul.getElementsByTagName("li");
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
+function hselFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput_hsel");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL_hsel");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
 
 
 
@@ -428,35 +428,35 @@ function scrollFunction() {
 
 
 // password visibility toggle
-// function myFunction_psw() {
-//     var x = document.getElementById("password");
-//     var btn = document.getElementById("eye-btn");
+function myFunction_psw() {
+    var x = document.getElementById("password");
+    var btn = document.getElementById("eye-btn");
 
-//     if (x.type === "password") {
-//         x.type = "text";
-//         btn.setAttribute("class", "fas fa-eye-slash");
+    if (x.type === "password") {
+        x.type = "text";
+        btn.setAttribute("class", "fas fa-eye-slash");
 
-//     } else {
-//         x.type = "password";
-//         btn.setAttribute("class", "fas fa-eye");
+    } else {
+        x.type = "password";
+        btn.setAttribute("class", "fas fa-eye");
 
-//     }
+    }
 
-// }
+}
 
 // confirm password visibility toggle
-// function myFunction_psw_con() {
-//     var x = document.getElementById("password-confirm");
-//     var btn = document.getElementById("eye-btn-con");
+function myFunction_psw_con() {
+    var x = document.getElementById("password-confirm");
+    var btn = document.getElementById("eye-btn-con");
 
-//     if (x.type === "password") {
-//         x.type = "text";
-//         btn.setAttribute("class", "fas fa-eye-slash");
+    if (x.type === "password") {
+        x.type = "text";
+        btn.setAttribute("class", "fas fa-eye-slash");
 
-//     } else {
-//         x.type = "password";
-//         btn.setAttribute("class", "fas fa-eye");
+    } else {
+        x.type = "password";
+        btn.setAttribute("class", "fas fa-eye");
 
-//     }
+    }
 
-// }
+}

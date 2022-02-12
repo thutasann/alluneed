@@ -46,7 +46,7 @@
 
                         <div class="card-body">
 
-                            {{-- @if (session('status-password'))
+                            @if (session('status-password'))
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                                     {{session('status-password')}}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -71,7 +71,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                            @endif --}}
+                            @endif
 
                             <form class="text-center form-text-color" action="{{ route('login') }}" method="POST">
                                 {{ csrf_field() }}
@@ -86,14 +86,23 @@
                                     </div>
                                 </div>
 
-                                {{-- @if ($errors->has('email'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @if (session('status'))
+                                    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                                        {{session('status')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+
+                                @if ($errors->has('email'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         {{ $errors->first('email') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                @endif --}}
+                                @endif
 
                                 <div class="form-row">
                                     <div class="col">
@@ -106,14 +115,14 @@
                                     </div>
                                 </div>
 
-                                {{-- @if ($errors->has('password'))
+                                @if ($errors->has('password'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ $errors->first('password') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                @endif --}}
+                                @endif
 
                                 <div class="form-row">
                                     <div class="col">

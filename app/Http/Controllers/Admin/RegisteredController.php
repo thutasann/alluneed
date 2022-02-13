@@ -27,10 +27,12 @@ class RegisteredController extends Controller
         return $output;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('admin.users.index')->with('users', $users);
+        $users_all = User::all();
+        $users = User::where('role_as', $request->input('roles'))->get();
+        return view('admin.users.index')->with('users', $users)
+        ->with('users_all', $users_all);;
     }
 
     public function edit($id)

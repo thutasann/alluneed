@@ -34,7 +34,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Browse Collections:</h6>
-                <a class="collapse-item" href="{{ url('/group') }}">Group</a>
+                <a class="collapse-item" href="{{ url('/groups') }}">Group</a>
                 <a class="collapse-item" href="{{ url('/category') }}">Category</a>
                 <a class="collapse-item" href="{{ url('/sub-category') }}">Sub Category (Brand)</a>
                 <a class="collapse-item" href="{{ url('/products') }}">Products (Items)</a>
@@ -90,7 +90,7 @@
             <span>Home Slider</span>
         </a>
     </li>
-    
+
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">

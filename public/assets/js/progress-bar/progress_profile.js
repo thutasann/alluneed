@@ -1,11 +1,11 @@
 // profile update ajax
 $(document).ready(function(){
-        
+
 $('#pro_update_form').on('submit', function(event){
-    
+
     event.preventDefault();
     var count_error = 0;
-        
+
     var action = $(this).attr('action');
     var fname = $(this).closest('.profile-update').find('#fname').val();
     var Iname = $(this).closest('.profile-update').find('#Iname').val();
@@ -22,14 +22,14 @@ $('#pro_update_form').on('submit', function(event){
     var pincode = $(this).closest('.profile-update').find('#pincode').val();
     var phone = $(this).closest('.profile-update').find('#phone').val();
     var alternate_phone = $(this).closest('.profile-update').find('#alternate_phone').val();
-    
+
     // if($(this).closest('.profile-update').find('#customSwitches').prop("checked")==true)
     // {
     //     var roles = true;
     // }
     // else
     // {
-    //     var roles = ''; 
+    //     var roles = '';
     // }
 
     if(count_error == 0)
@@ -65,7 +65,7 @@ $('#pro_update_form').on('submit', function(event){
                 $('#save').attr('disabled', 'disabled');
                 $('#reset').attr('disabled', 'disabled');
                 $('#process_profile').css('display', 'block');
-                
+
                 $('#fname').attr('readonly', 'readonly');
                 $('#fname').css('background-color', 'white');
 
@@ -80,7 +80,7 @@ $('#pro_update_form').on('submit', function(event){
 
                 $('#form-autocomplete-country').attr('readonly', 'readonly');
                 $('#form-autocomplete-country').css('background-color', 'white');
-                
+
                 $('#city').attr('readonly', 'readonly');
                 $('#city').css('background-color', 'white');
 
@@ -95,7 +95,7 @@ $('#pro_update_form').on('submit', function(event){
 
                 $('#alternate_phone').attr('readonly', 'readonly');
                 $('#alternate_phone').css('background-color', 'white');
-                
+
             },
 
             success:function(data) {
@@ -106,7 +106,7 @@ $('#pro_update_form').on('submit', function(event){
                 progress_bar_process(percentage, timer);
                 }, 1000);
 
-                $('.title').html(fname + ' | AllUNeed');
+                $('.title').html('AllUNeed | ' + fname);
                 $('#pro-name').load(location.href + ' .pro-name');
                 $('#country').load(location.href + ' .country');
                 $('#address1').load(location.href + ' .address1');
@@ -167,7 +167,7 @@ function progress_bar_process(percentage, timer)
         }, 5000);
     }
 
-    
+
 }
 
 });

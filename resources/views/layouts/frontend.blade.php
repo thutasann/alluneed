@@ -127,6 +127,33 @@
     <!-- Autocomplete Country JS -->
     <script type="text/javascript" src="{{ asset('assets/js/auto-complete.js') }} "></script>
 
+    {{-- serach autofill --}}
+    <script>
+        $(document).ready(function(){
+            src = "{{ route('searchproductajax') }}";
+            $("#search_text").autocomplete({
+                source: function(request, response){
+                    $.ajax({
+                    url: src,
+                    data: {
+                        term: request.term
+                    },
+                    dataType: "json",
+                    success: function(data){
+                        response(data);
+                    }
+                    });
+                },
+                minLength : 1,
+            });
+
+            $(document).on('click', '.ui-menu-item' , function(){
+                $("#search-form").submit();
+            });
+
+        });
+    </script>
+
     {{-- autocomplete jquery UI --}}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 

@@ -14,16 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
 
 
 Auth::routes();
 
+Route::get('/', 'App\Http\Controllers\Frontend\CollectionController@homeindex');
+Route::get('/new-arrivals', 'App\Http\Controllers\Frontend\CollectionController@newarrivals');
+Route::get('/sellers', 'App\Http\Controllers\Frontend\CollectionController@sellers');
 
 
-// USER ROUTES (isAdmin is from Kernel.php)
+
+// Collections
+Route::get('/collections', 'App\Http\Controllers\Frontend\CollectionController@index');
+Route::get('collection/{group_url}', 'App\Http\Controllers\Frontend\CollectionController@groupview');
+Route::get('collection/{group_url}/{cate_url}', 'App\Http\Controllers\Frontend\CollectionController@categoryview');
+Route::get('collection/{group_url}/{cate_url}/{subcate_url}', 'App\Http\Controllers\Frontend\CollectionController@subcategoryview');
+Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}/{prod_id}', 'App\Http\Controllers\Frontend\CollectionController@productview');
+
+// Search autocomplete
+Route::get('/searchajax', 'App\Http\Controllers\Frontend\CollectionController@SearchautoComplete')->name('searchproductajax');
+Route::post('/search', 'App\Http\Controllers\Frontend\CollectionController@result');
+
+// Like, Unlike
+Route::post('store-like', 'App\Http\Controllers\Frontend\LikeController@storelike');
+Route::post('store-unlike', 'App\Http\Controllers\Frontend\LikeController@storeunlike');
+
+// Review
+Route::post('store-reviews', 'App\Http\Controllers\Frontend\ReviewController@store');
+
+
+
+
+// USER ROUTES (isUser is from Kernel.php)
 Route::group(['middleware' => ['auth', 'isUser']], function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

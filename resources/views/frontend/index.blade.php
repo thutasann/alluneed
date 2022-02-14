@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
 
+@include('layouts.inc.encrypt')
+
 @section('title')
     Home
 @endsection
@@ -7,6 +9,15 @@
 @section('content')
 
     @include('frontend.slider.slider')
+
+    @if (session('status-no-search'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{session('status-no-search')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     {{-- collections (12) --}}
     <div class="container-fluid">
@@ -26,18 +37,18 @@
                 </div>
 
                 <ul class="services-list" id="myUL_hcol">
-                    @for ($i = 0; $i < 6 ; $i++)
+                    @foreach($groups as $i)
                         <li class="services-item rounded waves-effect">
-                            <a href="#" class="services-item-link">Electronic Devices</a>
-                            <p class="services-item-description">Electronic devices blah blah blah</p>
+                            <a href="{{ url('collection/'.$i->url)}}" class="services-item-link">{{$i->name}}</a>
+                            <p class="services-item-description">{{$i->descrip}}</p>
                         </li>
-                    @endfor
+                    @endforeach
                 </ul>
 
             </nav>
 
             <div class="services-actions">
-                <a href="#" class="link-btn btn-primary btn text-white px-3 py-3">View all Collections</a>
+                <a href="{{ url("/collections") }}" class="link-btn btn-primary btn text-white px-3 py-3">View all Collections</a>
             </div>
 
         </div>
@@ -67,17 +78,20 @@
 
                 <div class="row w-100 flex-nowrap mx-1">
 
-                    @for ($i = 0; $i < 16; $i++)
+                    @foreach($popular as $i)
+                        @php
+                            $truncated = Illuminate\Support\Str::limit($i->name, 50);
+                        @endphp
                         <div class="col-6 col-sm-4 col-md-3 col-xl-2 text-center infi-item">
                             <div class='infi-dtl rounded waves-effect'>
-                                <a href=#">
-                                    <img class="d-block mx-auto img-fluid mb-3 animated fadeIn" src="{{ asset('uploads/products/prod/1627930401.jpg')}}">
+                                <a href="{{url('collection/'.$i->subcategory->category->group->url.'/'.$i->subcategory->category->url.'/'.$i->subcategory->url.'/'.$i->url.'/'.Crypt::encrypt($i->id)) }}">
+                                <img class="d-block mx-auto img-fluid mb-3 animated fadeIn" src="{{ asset('uploads/products/prod/'.$i->prod_image)}}">
                                 <hr>
-                                <span class="infi-name animated fadeIn">Samsung</span>
+                                <span class="infi-name animated fadeIn">{{$truncated}}</span>
                                 </a>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
 
                 <div class="p-3 control"><i class="fa fa-2x fa-chevron-right"></i></div>
@@ -101,18 +115,21 @@
 
             <nav class="services responsive-wrapper">
                 <ul class="services-list">
-                @for ($i = 0; $i < 6; $i++)
-                    <li class="services-item rounded waves-effect">
-                        <img src="{{ asset('uploads/products/prod/1627930401.jpg')}}" class="shadow-sm img-fluid rounded mb-3"><hr>
-                        <a  href="#" >Nokia</a>
-                        <p class="services-item-description">Nokia is blah blah...</p>
-                    </li>
-                @endfor
+                    @foreach($newarrivals as $new)
+                        @php
+                            $truncated = Illuminate\Support\Str::limit($new->small_description, 500);
+                        @endphp
+                        <li class="services-item rounded waves-effect">
+                            <img src="{{ asset('uploads/products/prod/'.$new->prod_image)}}" class="shadow-sm img-fluid rounded mb-3"><hr>
+                            <a  href="{{url('collection/'.$new->subcategory->category->group->url.'/'.$new->subcategory->category->url.'/'.$new->subcategory->url.'/'.$new->url.'/'.Crypt::encrypt($new->id))}}" class="services-item-link font-weight-bolder" >{{$new->name}}</a>
+                            <p class="services-item-description">{{ strip_tags($truncated) }}...</p>
+                        </li>
+                    @endforeach
                 </ul>
             </nav>
 
             <div class="services-actions">
-                <a href="#" class="link-btn btn-primary btn text-white px-3 py-3">View all New Arrivals</a>
+                <a href="{{url('/new-arrivals')}}" class="link-btn btn-primary btn text-white px-3 py-3">View all New Arrivals</a>
             </div>
 
         </div>
@@ -126,7 +143,7 @@
             <div id="demo1" class="carousel slide slides" data-ride="carousel">
                 <div class="carousel-inner">
                 <div class="carousel-item active bg-white">
-                    <a href="{{url('collection/electronic-devices')}}"> 
+                    <a href="{{url('collection/electronic-devices')}}">
                     <img src="{{ asset('assets/img/electronics.jpg')}}" alt="Los Angeles" class="waves-effect rounded img-responsive">
                     </a>
                 </div>
@@ -158,13 +175,13 @@
 
         <nav class="services responsive-wrapper">
             <ul class="services-list">
-                @for ($i = 0; $i < 6; $i++)
+                @foreach($categories as $i)
                     <li class="services-item rounded waves-effect">
-                        <img src="{{ asset('uploads/categoryimage/1626195375.jpg')}}" class="shadow-sm img-fluid rounded mb-3"><hr>
-                        <a href="#" class="services-item-link font-weight-bolder">Mobile Phone</a>
-                        <p class="services-item-description">Lots of mobile phones blah blah..</p>
+                        <img src="{{ asset('uploads/categoryimage/'.$i->image)}}" class="shadow-sm img-fluid rounded mb-3"><hr>
+                        <a href="{{url('collection/'.$i->group->url.'/'.$i->url)}}" class="services-item-link font-weight-bolder">{{$i->name}}</a>
+                        <p class="services-item-description">{{$i->description}}</p>
                     </li>
-                @endfor
+                @endforeach
             </ul>
         </nav>
 
@@ -214,7 +231,7 @@
             </div>
 
             <div class="services-actions">
-                <a href="#" class="link-btn btn-primary btn text-white px-3 py-3">View all Sellers</a>
+                <a href="{{ url("/sellers") }}" class="link-btn btn-primary btn text-white px-3 py-3">View all Sellers</a>
             </div>
 
         </section>

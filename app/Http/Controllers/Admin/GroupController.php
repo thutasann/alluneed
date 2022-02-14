@@ -85,4 +85,36 @@ class GroupController extends Controller
         $group->update();
         return redirect()->back()->with('status', 'One group Moved to Trash!');
     }
+
+    public function deletedrecords()
+    {
+        $group = Groups::where('status', '2')->get();
+        return view('admin.collection.group.deleted')->with('group', $group);
+    }
+
+    public function deletedrestore($id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $id);
+        $group = Groups::find($decrypted);
+        $group->status = "0"; //0=>show, 1=>hide, 2=>delete
+        $group->update();
+        return redirect('groups')->with('status', 'Group Data Restored Successfully');
+    }
+
+    public function deletetrash($id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $id);
+        $group = Groups::find($decrypted);
+        $group->delete();
+        return redirect()->back()->with('del-trash-status', 'Trash Deleted Successfully');
+
+    }
+
+    public function emptytrash()
+    {
+        $trash = Groups::where('status', '2');
+        $trash->delete();
+        return redirect()->back()->with('empty-trash-status', 'Empty Trash Successfully');
+
+    }
 }

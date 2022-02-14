@@ -197,25 +197,17 @@
                                 </div>
 
                                 <ul class="list-unstyled" id="myUL_col">
-                                    {{-- @php
-                                    $group_nav = App\Models\Groups::where('status', '0')->where('status', '!=' , '1')->where('status','!=','2')->get();
-                                    @endphp --}}
+                                    @php
+                                    $group_nav = App\Models\Models\Groups::where('status', '0')->where('status', '!=' , '1')->where('status','!=','2')->get();
+                                    @endphp
 
-                                    @for ($i = 0; $i < 6; $i++)
-                                        <li>
-                                            <a class="menu-item pl-0 d-block" href="#">
-                                            <i class="fas fa-caret-right pl-1 pr-3"></i>Electronic Devices
-                                            </a>
-                                        </li>
-                                    @endfor
-
-                                    {{-- @foreach ($group_nav as $group_nav_item)
+                                    @foreach ($group_nav as $group_nav_item)
                                     <li>
                                         <a class="menu-item pl-0 d-block" href="{{url('collection/'.$group_nav_item->url)}}">
                                         <i class="fas fa-caret-right pl-1 pr-3"></i>{{$group_nav_item->name}}
                                         </a>
                                     </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
 
                             </div>
@@ -230,25 +222,17 @@
                                 </div>
 
                                 <ul class="list-unstyled" id="myUL_cate">
-                                    {{-- @php
-                                    $cate_nav = App\Models\Category::where('status', '0')->where('status','!=', '1')->where('status','!=','3')->get();
-                                    @endphp --}}
+                                    @php
+                                    $cate_nav = App\Models\Models\Category::where('status', '0')->where('status','!=', '1')->where('status','!=','3')->get();
+                                    @endphp
 
-                                    @for ($i = 0; $i < 6; $i++)
-                                        <li>
-                                            <a class="menu-item pl-0 d-block" href="#">
-                                                <i class="fas fa-caret-right pl-1 pr-3"></i>Mobile <span>(Electronic)</span>
-                                            </a>
-                                        </li>
-                                    @endfor
-
-                                    {{-- @foreach ($cate_nav as $cate_nav_item)
+                                    @foreach ($cate_nav as $cate_nav_item)
                                     <li>
                                         <a class="menu-item pl-0 d-block" href="{{url('collection/'.$cate_nav_item->group->url.'/'.$cate_nav_item->url)}}">
                                         <i class="fas fa-caret-right pl-1 pr-3"></i>{{$cate_nav_item->name}} <span>({{$cate_nav_item->group->name}})</span>
                                         </a>
                                     </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
                             </div>
 
@@ -262,25 +246,18 @@
                                 </div>
 
                                 <ul class="list-unstyled" id="myUL_brd">
-                                    {{-- @php
-                                    $brand_nav = App\Models\Subcategory::where('status', '0')->where('status', '!=' , '1')->where('status', '!=', '3')->get();
-                                    @endphp --}}
+                                    @php
+                                        $brand_nav = App\Models\Models\Subcategory::where('status', '0')->where('status', '!=' , '1')->where('status', '!=', '3')->get();
+                                    @endphp
 
-                                    @for ($i = 0; $i < 6; $i++)
-                                        <li>
-                                            <a class="menu-item pl-0 d-block" href="#)}}">
-                                            <i class="fas fa-caret-right pl-1 pr-3"></i>Samsung <span>(Mobile)</span>
-                                            </a>
-                                        </li>
-                                    @endfor
 
-                                    {{-- @foreach ($brand_nav as $brand_nav_item)
+                                    @foreach ($brand_nav as $brand_nav_item)
                                     <li>
                                         <a class="menu-item pl-0 d-block" href="{{url('collection/'.$brand_nav_item->category->group->url.'/'.$brand_nav_item->category->url.'/'.$brand_nav_item->url)}}">
                                         <i class="fas fa-caret-right pl-1 pr-3"></i>{{$brand_nav_item->name}} <span>({{$brand_nav_item->category->name}})</span>
                                         </a>
                                     </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
                             </div>
 

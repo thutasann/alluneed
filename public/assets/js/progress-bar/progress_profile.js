@@ -8,7 +8,7 @@ $('#pro_update_form').on('submit', function(event){
 
     var action = $(this).attr('action');
     var fname = $(this).closest('.profile-update').find('#fname').val();
-    var Iname = $(this).closest('.profile-update').find('#Iname').val();
+    var lname = $(this).closest('.profile-update').find('#lname').val();
 
     var user_id = $(this).closest('.profile-update').find('#user_id').val();
     var vendor_name = $(this).closest('.profile-update').find('#vendor_name').val();
@@ -46,7 +46,7 @@ $('#pro_update_form').on('submit', function(event){
             method:"POST",
             data:{
                 'fname': fname,
-                'Iname': Iname,
+                'lname': lname,
                 'user_id' : user_id,
                 'vendor_name' : vendor_name,
                 'description' : description,

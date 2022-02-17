@@ -108,12 +108,14 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 
     <!-- Custom JS -->
     <script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
 
     <!-- JQuery -->
-    <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js')}}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js')}}"></script> --}}
 
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>

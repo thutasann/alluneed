@@ -21,17 +21,17 @@ $(document).ready(function(){
 
 
         $.ajax({
-            
+
             type:"POST",
             url: '/check-user',
             data: data,
-            
+
             success: function (response){
 
-                var options = 
+                var options =
                 {
-                    "key": "rzp_test_cJfl80NO7JclK2", 
-                    "amount": (20 * 100), 
+                    "key": "rzp_test_cJfl80NO7JclK2",
+                    "amount": (20 * 100),
                     "name": "AllUNeed",
                     "description": "Updating to Vendor Account",
                     "image": "http://localhost:8000/assets/img/logo.png",
@@ -59,17 +59,17 @@ $(document).ready(function(){
                         });
                     },
 
-                    "prefill": 
+                    "prefill":
                     {
                         "name": response.name,
                         "email": response.email
                     },
 
-                    "theme": 
+                    "theme":
                     {
                         "color": "#528FF0"
                     }
-                    
+
                 };
 
                 var rzp1 = new Razorpay(options);
@@ -80,7 +80,7 @@ $(document).ready(function(){
 
         });
 
-        
+
 
     });
 

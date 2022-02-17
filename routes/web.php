@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+// Home page
 Route::get('/', 'App\Http\Controllers\Frontend\CollectionController@homeindex');
 Route::get('/new-arrivals', 'App\Http\Controllers\Frontend\CollectionController@newarrivals');
 Route::get('/sellers', 'App\Http\Controllers\Frontend\CollectionController@sellers');
-
 
 
 // Collections
@@ -31,16 +31,25 @@ Route::get('collection/{group_url}/{cate_url}', 'App\Http\Controllers\Frontend\C
 Route::get('collection/{group_url}/{cate_url}/{subcate_url}', 'App\Http\Controllers\Frontend\CollectionController@subcategoryview');
 Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}/{prod_id}', 'App\Http\Controllers\Frontend\CollectionController@productview');
 
-// Search autocomplete
-Route::get('/searchajax', 'App\Http\Controllers\Frontend\CollectionController@SearchautoComplete')->name('searchproductajax');
-Route::post('/search', 'App\Http\Controllers\Frontend\CollectionController@result');
+// Advertise
+
+// Vendor profile view
+
+// Cart
+
+// Review
+Route::post('store-reviews', 'App\Http\Controllers\Frontend\ReviewController@store');
 
 // Like, Unlike
 Route::post('store-like', 'App\Http\Controllers\Frontend\LikeController@storelike');
 Route::post('store-unlike', 'App\Http\Controllers\Frontend\LikeController@storeunlike');
 
-// Review
-Route::post('store-reviews', 'App\Http\Controllers\Frontend\ReviewController@store');
+// Search autocomplete
+Route::get('/searchajax', 'App\Http\Controllers\Frontend\CollectionController@SearchautoComplete')->name('searchproductajax');
+Route::post('/search', 'App\Http\Controllers\Frontend\CollectionController@result');
+
+// Search
+
 
 
 
@@ -56,6 +65,23 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
     Route::post('/password-update/{id}', 'App\Http\Controllers\Frontend\UserController@passwordupdate');
     Route::post('/propic-update/{id}', 'App\Http\Controllers\Frontend\UserController@propicupdate');
 
+    // Request Vendor
+    Route::post('/check-user', 'App\Http\Controllers\Frontend\UserController@checkuser');  // for razor pay
+    Route::post('/req_vendor/{id}', 'App\Http\Controllers\Frontend\UserController@reqvendor');
+
+
+    // WishList
+
+    // Activity log / Orders / Voucher
+    Route::get('activityall/{user_name}', 'App\Http\Controllers\Frontend\ActivityController@activityindex');
+    // Route::get('orders/{user_name}', 'Frontend\UserController@orderindex');
+    // Route::get('voucher/{order_id}/{user_name}', 'Frontend\UserController@voucherindex');
+
+
+    // Coupon code
+
+    // Checkout
+
 });
 
 
@@ -64,6 +90,18 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function (){
 
     // Dashboard
     Route::get('/dashboard', 'App\Http\Controllers\Admin\DashboardController@index');
+
+    // Profile Controller
+    Route::get('/admin/{user_name}', 'App\Http\Controllers\Admin\ProfileController@myprofile');
+    Route::post('/my-profile-update', 'App\Http\Controllers\Admin\ProfileController@profileupdate');
+    Route::post('/propic-update', 'App\Http\Controllers\Admin\ProfileController@propicupdate');
+    Route::post('/password-update', 'App\Http\Controllers\Admin\ProfileController@passwordupdate');
+
+    // Notifications
+
+    // Vendor Request confirm
+
+    // Slider for Advertising
 
 
     // Registered users (manage users)
@@ -120,6 +158,9 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function (){
     Route::get('empty-product-trash', 'App\Http\Controllers\Admin\ProductController@emptytrash');
 
 
+    // Order management
+
+    // coupon
 
 });
 
@@ -128,7 +169,18 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function (){
 // VENDOR ROUTES
 Route::group(['middleware' => ['auth', 'isVendor']], function () {
 
+    // Vendor dashboard
     Route::get('/vendor-dashboard', function () {
         return view('vendor.dashboard');
     });
+
+    // Products
+
+    // Advertising
+
+    // Coupons
+
+    // Customers
+
+    // Order management
 });

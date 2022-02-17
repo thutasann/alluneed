@@ -72,7 +72,10 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                @php
+                    $slname   = preg_replace('/[^a-z0-9]+/i', '.', trim(strtolower(Auth::user()->name)));
+                @endphp
+                <a class="dropdown-item" href="{{ url('admin/'.$slname) }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>

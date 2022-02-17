@@ -12,9 +12,14 @@
 
             </div>
 
-            <form action="{{ url('req_vendor/'.Auth::user()->id) }}" method="POST" id="reqv_form">
+            <form method="POST" action="{{ url('req_vendor/'.Auth::user()->id) }}" id="reqv_form">
 
                 {{ csrf_field() }}
+                {{-- {{ method_field('POST') }} --}}
+
+                {{-- <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" /> --}}
+
+
 
                 <div class="modal-body mx-3">
 
@@ -50,7 +55,7 @@
                         <div class="col-md-12">
                             <div class="md-form input-with-pre-icon form-group">
                                 <i class="fas fa-pencil-alt input-prefix"></i>
-                                <textarea class="md-textarea form-control" name="description" rows="3" spellcheck="false"></textarea>
+                                <textarea class="md-textarea form-control" name="description" rows="3" spellcheck="false" required></textarea>
                                 <label>Description (Optional)</label>
                             </div>
                         </div>
@@ -60,13 +65,13 @@
                     <!-- Instruction -->
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <p class="text-left font-weight-bolder alert alert-info">Pay Online <b>$20</b> for updating to Vendor Account.</p>
+                            <p class="text-left font-weight-bolder alert alert-info">Pay Online <b>₹20</b> for updating to Vendor Account.</p>
                         </div>
                     </div>
 
                     <!-- Razor Payment -->
                     <div class="mb-form mb-3">
-                        <button type="button" class="razorpay_pay_btn btn py-2 px-2 mb-4 btn blue-gradient rounded" hover-tooltip="RazorPay Payment"  tooltip-position="bottom" style="outline:none;">
+                        <button type="submit" class="razorpay_pay_btn btn py-2 px-2 mb-4 btn blue-gradient rounded" hover-tooltip="RazorPay Payment"  tooltip-position="bottom" style="outline:none;">
                             <img width='80px'  src="{{ asset('assets/img/razor.png')}}">
                         </button>
                     </div>

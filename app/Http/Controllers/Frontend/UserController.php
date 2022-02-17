@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Models\Request_vendor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,11 @@ class UserController extends Controller
     public function myprofile($user_name)
     {
         $user_id = Auth::user()->id;
-        return view('frontend.user.profile');
+        $req_pending = Request_vendor::where('user_id', $user_id)->where('confirm', '0')->first();
+        $vendor_name = Request_vendor::where('user_id', $user_id)->where('confirm', '1')->get();
+
+        return view('frontend.user.profile')->with('req_pending', $req_pending)
+        ->with('vendor_name', $vendor_name);
     }
 
     public function profileupdate(Request $request, $id)
@@ -24,7 +29,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $user->name = $request->input('fname');
-        $user->lname = $request->input('Iname');
+        $user->lname = $request->input('lname');
         $user->address1 = $request->input('address1');
         $user->address2 = $request->input('address2');
         $user->country = $request->input('country');
@@ -68,4 +73,43 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/login')->with('status-password', 'Password Updated Successfully, Please Login again!');
     }
+
+
+
+    // for razorpay
+    public function checkuser(Request $request)
+    {
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $vendor_name = $request->input('vendor_name');
+        $description = $request->input('description');
+
+
+        if ($name || $email || $vendor_name || $description) {
+            return response()->json([
+                'name' => $request->name,
+                'email' => $request->email,
+                'vendor_name' => $request->vendor_name,
+                'description' => $request->description,
+            ]);
+        }
+    }
+
+    public function reqvendor(Request $request, $id)
+    {
+
+        if (isset($_POST['place_order_razorpay'])) {
+            $request_v = new Request_vendor();
+            $request_v->user_id = $id;
+            $request_v->vendor_name = $request->input('vendor_name');
+            $request_v->description = $request->input('description');
+            $request_v->paymment_mode = "Payment by Razorpay";
+            $request_v->payment_id = $request->input('razorpay_payment_id');
+            $request_v->payment_status = "2";
+            $request_v->save();
+            return redirect()->back()->with('status_req', 'Your Vendor Request was sent to Admin.');
+        }
+    }
+
+
 }

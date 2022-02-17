@@ -178,6 +178,16 @@
                             @endif
 
                             @if(Auth::user()->role_as == 'vendor')
+                                <div class="alert alert-info go-vendor">
+                                    Your Account is a Vendor account in our website 'AllUNeed'. You can now upload products in <br> 'Vendor Dashboard ' and sell these products in our website.
+                                    <a href="{{ url('/vendor-dashboard') }}" target='_blank' class='btn btn-info py-2 waves-effect'>
+                                    Go to Vendor Dashboard <i class="fas fa-arrow-alt-circle-right"></i>
+                                    </a>
+                                </div>
+                            @else
+                            @endif
+
+                            @if(Auth::user()->role_as == 'vendor')
                             <div class="alert alert-info go-vendor">
                                 Your Account is a Vendor account in our website 'AllUNeed'. You can now upload products in <br> 'Vendor Dashboard ' and sell these products in our website.
                                 <a href="{{ url('/vendor-dashboard') }}" target='_blank' class='btn btn-info py-2 waves-effect'>
@@ -199,16 +209,16 @@
                                 <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
 
                                 <ul class="nav  nav-tabs nav-justified md-tabs" id="myTabJust" role="tablist">
-                                <li class="nav-item ">
-                                    <a class="nav-link active" id="user-tab-just" data-toggle="tab" href="#user-just" aria-selected="true">
-                                    User Info
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" aria-selected="false">
-                                    Contact Info
-                                    </a>
-                                </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link active" id="user-tab-just" data-toggle="tab" href="#user-just" aria-selected="true">
+                                        User Info
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" aria-selected="false">
+                                        Contact Info
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div class="tab-content pro-tab pt-5" id="myTabContentJust">
@@ -227,16 +237,16 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-control-label">Sur Name</label>
-                                                <input type="text" id="Iname" name="Iname" class="form-control form-control-alternative" placeholder="Sur Name" value="{{ Auth::user()->Iname}}" spellcheck="false">
+                                                <input type="text" id="lname" name="lname" class="form-control form-control-alternative" placeholder="Sur Name" value="{{ Auth::user()->lname}}" spellcheck="false">
                                             </div>
                                         </div>
 
-                                        {{-- <div class="{{ $req_pending ? 'col-md-12' : 'col-md-6' }}">
+                                        <div class="{{ $req_pending ? 'col-md-12' : 'col-md-6' }}">
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-email">Email address</label>
                                                 <input type="email"  class="form-control form-control-alternative bg-white" value="{{ Auth::user()->email}}" readonly spellcheck="false">
                                             </div>
-                                        </div> --}}
+                                        </div>
 
                                         @if(Auth::user()->role_as == 'vendor')
                                             @foreach($vendor_name as $iv)
@@ -248,7 +258,7 @@
                                             </div>
                                             @endforeach
                                         @elseif(Auth::user()->role_as == NULL)
-                                            {{-- @if($req_pending)
+                                            @if($req_pending)
                                             @else
                                             <div class="col-lg-6">
                                                 <div class="form-group mt-4 d-flex pl-0 ml-0">
@@ -256,7 +266,7 @@
                                                 <label class="form-control-label mt-2 pt-1 ml-1">Update to Vendor Account</label>
                                                 </div>
                                             </div>
-                                            @endif --}}
+                                            @endif
                                         @endif
 
                                         @if(Auth::user()->role_as == 'vendor')
@@ -413,5 +423,9 @@
 
         });
     </script>
+
+    <!-- Razor pay methods -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="{{ asset('assets/js/razorpay_reqv.js') }}"></script>
 
 @endsection

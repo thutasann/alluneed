@@ -240,6 +240,7 @@ class CollectionController extends Controller
     public function productview($group_url, $cate_url, $subcate_url, $prod_url, $prod_id)
     {
         if (Auth::user()) {
+
             $d_prod_id = Crypt::decrypt($prod_id);
 
             $review = Review::where('prod_id', $d_prod_id)

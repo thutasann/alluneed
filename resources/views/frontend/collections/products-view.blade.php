@@ -196,7 +196,7 @@
                     <div class="row">
 
                     <input type="hidden" class="product_id" value="{{$products->id}}">
-                    {{-- <input type="hidden" class="vendor_id" value="{{ $products->user->id }}" > --}}
+                    {{-- <input type="" class="vendor_id" value="{{ $products-> }}" > --}}
 
                     <div class="number-input col-md-12">
                         <button class='btn-qty btn-minus mt-2' onclick="this.parentNode.querySelector('input[type=number]').stepDown()" >-</button>
@@ -420,6 +420,6 @@
     </div>
 </div>
 
-{{-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f1270c6e31e0e3d"></script> --}}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f1270c6e31e0e3d"></script>
 
 @endsection

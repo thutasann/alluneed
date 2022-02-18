@@ -58,6 +58,7 @@ class ProductController extends Controller
     {
         $products = new Products();
         $products->name = $request->input('name');
+        $products->vendor_id = 1;
         $products->sub_category_id = $request->input('sub_category_id');
         $products->url = $request->input('url');
         $products->small_description = $request->input('small_description');

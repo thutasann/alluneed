@@ -76,6 +76,23 @@ class UserController extends Controller
 
 
 
+    public function reqvendor(Request $request, $id)
+    {
+
+        if (isset($_POST['place_order_razorpay'])) {
+
+            $request_v = new Request_vendor();
+            $request_v->user_id = $id;
+            $request_v->vendor_name = $request->input('vendor_name');
+            $request_v->description = $request->input('description');
+            $request_v->payment_mode = "Payment by Razorpay";
+            $request_v->payment_id = $request->input('razorpay_payment_id');
+            $request_v->payment_status = "2";
+            $request_v->save();
+            return redirect()->back()->with('status_req', 'Your Vendor Request was sent to Admin.');
+        }
+    }
+
     // for razorpay
     public function checkuser(Request $request)
     {
@@ -87,27 +104,12 @@ class UserController extends Controller
 
         if ($name || $email || $vendor_name || $description) {
             return response()->json([
+                'user_id' => $request->user_id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'vendor_name' => $request->vendor_name,
                 'description' => $request->description,
             ]);
-        }
-    }
-
-    public function reqvendor(Request $request, $id)
-    {
-
-        if (isset($_POST['place_order_razorpay'])) {
-            $request_v = new Request_vendor();
-            $request_v->user_id = $id;
-            $request_v->vendor_name = $request->input('vendor_name');
-            $request_v->description = $request->input('description');
-            $request_v->paymment_mode = "Payment by Razorpay";
-            $request_v->payment_id = $request->input('razorpay_payment_id');
-            $request_v->payment_status = "2";
-            $request_v->save();
-            return redirect()->back()->with('status_req', 'Your Vendor Request was sent to Admin.');
         }
     }
 

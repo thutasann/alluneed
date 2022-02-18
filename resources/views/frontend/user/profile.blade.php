@@ -197,12 +197,12 @@
                             @else
                             @endif
 
-                            {{-- @if($req_pending)
+                            @if($req_pending)
                             <div class="alert alert-info">
                                 Your Vendor Request is Pending now, Admin will approve very soon.
                             </div>
                             @else
-                            @endif --}}
+                            @endif
 
                             <form class='profile-update' action="{{ url('my-profile-update/'.Auth::user()->id) }}" method="POST" id="pro_update_form">
                                 {{ csrf_field() }}

@@ -12,13 +12,10 @@
 
             </div>
 
-            <form method="POST" action="{{ url('req_vendor/'.Auth::user()->id) }}" id="reqv_form">
+            <form action="{{ url('req-vendor/'.Auth::user()->id) }}" id="reqv_form">
 
-                {{ csrf_field() }}
-                {{-- {{ method_field('POST') }} --}}
-
+                {{-- {{ csrf_field() }} --}}
                 {{-- <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" /> --}}
-
 
 
                 <div class="modal-body mx-3">
@@ -41,6 +38,7 @@
                                 <label>Your Name</label>
                             </div>
                         </div>
+
 
                         {{-- vendor_name --}}
                         <div class="col-md-12">
@@ -71,7 +69,7 @@
 
                     <!-- Razor Payment -->
                     <div class="mb-form mb-3">
-                        <button type="submit" class="razorpay_pay_btn btn py-2 px-2 mb-4 btn blue-gradient rounded" hover-tooltip="RazorPay Payment"  tooltip-position="bottom" style="outline:none;">
+                        <button type="button" class="razorpay_pay_btn btn py-2 px-2 mb-4 btn blue-gradient rounded" hover-tooltip="RazorPay Payment"  tooltip-position="bottom" style="outline:none;">
                             <img width='80px'  src="{{ asset('assets/img/razor.png')}}">
                         </button>
                     </div>

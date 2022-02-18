@@ -35,7 +35,15 @@ Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}/{prod_id}
 
 // Vendor profile view
 
-// Cart
+// cart
+Route::post('add-to-cart', 'App\Http\Controllers\Frontend\CartController@addtocart');
+Route::get('/cart', 'App\Http\Controllers\Frontend\CartController@index');
+Route::get('/load-cart-data', 'App\Http\Controllers\Frontend\CartController@cartloadbyajax');
+Route::post('update-to-cart', 'App\Http\Controllers\Frontend\CartController@updatetocart');
+Route::delete('delete-from-cart', 'App\Http\Controllers\Frontend\CartController@deletefromcart');
+Route::get('clear-cart', 'App\Http\Controllers\Frontend\CartController@clearcart');
+// Route::get('thank-you', 'Frontend\CartController@thankyou');
+
 
 // Review
 Route::post('store-reviews', 'App\Http\Controllers\Frontend\ReviewController@store');
@@ -66,16 +74,15 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
     Route::post('/propic-update/{id}', 'App\Http\Controllers\Frontend\UserController@propicupdate');
 
     // Request Vendor
-    Route::post('/check-user', 'App\Http\Controllers\Frontend\UserController@checkuser');  // for razor pay
-    Route::post('/req_vendor/{id}', 'App\Http\Controllers\Frontend\UserController@reqvendor');
+    Route::post('/req-vendor/{id}', 'App\Http\Controllers\Frontend\UserController@reqvendor');
+    Route::post('/check-user', 'App\Http\Controllers\Frontend\UserController@checkuser');
+
 
 
     // WishList
 
     // Activity log / Orders / Voucher
     Route::get('activityall/{user_name}', 'App\Http\Controllers\Frontend\ActivityController@activityindex');
-    // Route::get('orders/{user_name}', 'Frontend\UserController@orderindex');
-    // Route::get('voucher/{order_id}/{user_name}', 'Frontend\UserController@voucherindex');
 
 
     // Coupon code

@@ -7,7 +7,10 @@ use App\Models\Models\Category;
 use App\Models\Models\Groups;
 use App\Models\Models\Like;
 use App\Models\Models\Products;
+use App\Models\Models\Request_vendor;
 use App\Models\Models\Review;
+use App\Models\Models\Slider;
+use App\Models\Models\SliderProducts;
 use App\Models\Models\Subcategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -73,6 +76,7 @@ class CollectionController extends Controller
         ->orderBy('created_at', 'DESC')
             ->get();
 
+        $sliders = Slider::where('status', '0')->get();
 
         $users = User::where('role_as', 'vendor')
         ->where('isban', '0')->get();
@@ -82,7 +86,26 @@ class CollectionController extends Controller
             ->with('products', $products)
             ->with('newarrivals', $newarrivals)
             ->with('popular', $popular)
+            ->with('sliders', $sliders)
             ->with('users', $users);
+    }
+
+    public function adindex($link)
+    {
+        $slider = Slider::where('link', $link)->first();
+
+        $slider_id = $slider->id;
+        $slider_products = SliderProducts::where('slider_id', $slider_id)->get();
+
+        $user_id = $slider->vendor_id;
+        $user = User::where('id', $user_id)->first();
+
+        $vendor = Request_vendor::where('user_id', $user_id)->first();
+
+        return view('frontend.ad.index')->with('slider', $slider)
+            ->with('user', $user)
+            ->with('vendor', $vendor)
+            ->with('slider_products', $slider_products);
     }
 
     public function newarrivals()
@@ -342,7 +365,78 @@ class CollectionController extends Controller
             }
             // return redirect('search/'.$products->url);
         } else {
-            return redirect('/')->with('status-no-search', 'Product Not found');
+            return redirect('/')->with('status-no-search', 'Such product not Found');
+        }
+    }
+
+    public function prodsearch()
+    {
+        if (isset($_GET["products"])) {
+
+            $prodsearch = $_GET["products"];
+
+            $productsearch = Products::where('status', '!=', '3')
+                ->where('name', 'like', '%' . $prodsearch . '%')
+                ->get();
+
+
+            // Activity log ---
+            // $user_id = Auth::user()->id;
+            // $activities = new ActivityLog();
+            // $activities->user_id = $user_id;
+            // $activities->description = $prodsearch;
+            // $activities->type = 'search';
+            // $activities->save();
+            // Activity log ---
+
+
+            return view('frontend.collections.search')->with('productsearch', $productsearch);
+        }
+    }
+
+    public function vendorview($vendor_name, $vendor_id)
+    {
+        if (Auth::user()) {
+
+            $decrypted = $this->encrypt_decrypt('decrypt', $vendor_id);
+
+            // Activity log ---
+            // $user_id = Auth::user()->id;
+            // $activities = new ActivityLog();
+            // $activities->user_id = $user_id;
+            // $activities->vendor_id = $decrypted;
+            // $activities->type = 'vendor view';
+            // $activities->save();
+            // Activity log ---
+
+            $products = Products::where('status', '0')
+                ->where('status', '!=', '1')
+                ->where('status', '!=', '3')
+                ->where('vendor_id', $decrypted)
+                ->orderByRaw('created_at DESC')
+                ->get();
+
+            $user = User::find($decrypted);
+            $user_id = $user->id;
+
+            $vendor = Request_vendor::where('user_id', $user_id)->get();
+
+            // vendor prod serach
+            if (isset($_GET["q"])) {
+
+                $prodsearch = $_GET["q"];
+                $products = Products::where('name', 'like', '%' . $prodsearch . '%')
+                    ->where('vendor_id', $decrypted)
+                    ->where('status', '0')
+                    ->get();
+            }
+
+            return view('frontend.collections.vendor-profile')
+            ->with('products', $products)
+                ->with('user', $user)
+                ->with('vendor', $vendor);
+        } else {
+            return redirect()->route('login')->with('pls-login', 'Please Login First');
         }
     }
 

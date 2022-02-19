@@ -10,17 +10,20 @@
 
     @include('frontend.slider.slider')
 
-    @if (session('status-no-search'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{session('status-no-search')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
+
 
     {{-- collections (12) --}}
     <div class="container-fluid">
+
+        @if (session('status-no-search'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{session('status-no-search')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <div class="services-outer rounded">
 
             <div class="page-header mb-5 mt-0">
@@ -201,7 +204,7 @@
             </div>
 
             <div class="text-center p-3 mb-5">
-                <button class="btn bg-gradient-info text-white rounded toggle-all-1">
+                <button class="btn bg-gradient-info text-white rounded toggle-all">
                 <i class="fas fa-th" aria-hidden="true"></i> Show List
                 </button>
             </div>
@@ -212,17 +215,42 @@
 
                 <div class="row w-100 flex-nowrap mx-1">
 
-                    @for ($i = 0; $i < 6; $i++)
-                        <div class="col-6 col-sm-4 col-md-3 col-xl-2 text-center infi-item">
-                            <div class='infi-dtl rounded waves-effect'>
-                                <a href="#">
-                                    <img src="{{ asset('assets/img/user.jpg')}}"  class="d-block mx-auto img-fluid mb-3 animated fadeIn" title="Win mobile" alt="Win mobile">
-                                    <hr>
-                                    <span class="infi-name animated fadeIn">Win Mobile</span>
-                                </a>
-                            </div>
-                        </div>
-                    @endfor
+                @foreach($users as $v)
+
+                    @php
+                        $user_id = $v->id;
+                        $vendor = App\Models\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
+                        $encrypted = encrypt_decrypt('encrypt', $user_id);
+                    @endphp
+
+                    <div class="col-6 col-sm-4 col-md-3 col-xl-2 text-center infi-item">
+                    <div class='infi-dtl rounded waves-effect'>
+
+                        @foreach ($vendor as $vname)
+
+                            @php
+                                $slname = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($vname->vendor_name)));
+                            @endphp
+
+                            <a href="{{ url('vp/'.$slname.'/'.$encrypted)}}">
+
+                            @if($vname->users->Image == NULL)
+                                <img src="{{ asset('assets/img/user.jpg')}}"  class="d-block mx-auto img-fluid mb-3 animated fadeIn" title="{{ $vname->vendor_name }}" alt="{{ $vname->vendor_name }}">
+                            @else
+                                <img class="d-block mx-auto img-fluid mb-3 animated fadeIn" src="{{ asset('uploads/profile/'.$vname->users->Image) }}" title="{{ $vname->vendor_name }}" alt="{{ $vname->vendor_name }}">
+                            @endif
+
+                            <hr>
+
+                            <span class="infi-name animated fadeIn">{{ $vname->vendor_name }}</span>
+
+                            </a>
+
+                        @endforeach
+
+                    </div>
+                    </div>
+                @endforeach
 
                 </div>
 
@@ -231,7 +259,7 @@
             </div>
 
             <div class="services-actions">
-                <a href="{{ url("/sellers") }}" class="link-btn btn-primary btn text-white px-3 py-3">View all Sellers</a>
+                <a href="{{url('/sellers')}}" class="link-btn btn-primary btn text-white px-3 py-3">View all Sellers</a>
             </div>
 
         </section>

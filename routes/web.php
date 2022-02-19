@@ -32,8 +32,12 @@ Route::get('collection/{group_url}/{cate_url}/{subcate_url}', 'App\Http\Controll
 Route::get('collection/{group_url}/{cate_url}/{subcate_url}/{prod_url}/{prod_id}', 'App\Http\Controllers\Frontend\CollectionController@productview');
 
 // Advertise
+Route::get('ad/{link}', 'App\Http\Controllers\Frontend\CollectionController@adindex');
+
 
 // Vendor profile view
+Route::get('vp/{vendor_name}/{vendor_id}', 'App\Http\Controllers\Frontend\CollectionController@vendorview');
+
 
 // cart
 Route::post('add-to-cart', 'App\Http\Controllers\Frontend\CartController@addtocart');
@@ -57,6 +61,8 @@ Route::get('/searchajax', 'App\Http\Controllers\Frontend\CollectionController@Se
 Route::post('/search', 'App\Http\Controllers\Frontend\CollectionController@result');
 
 // Search
+Route::get('search', 'App\Http\Controllers\Frontend\CollectionController@prodsearch');
+
 
 
 
@@ -197,6 +203,15 @@ Route::group(['middleware' => ['auth', 'isVendor']], function () {
 
 
     // Advertising
+    Route::get('vendor/manage-ads', 'App\Http\Controllers\Vendor\AdController@index');
+    Route::get('vendor/create-ads', 'App\Http\Controllers\Vendor\AdController@create');
+    Route::post('vendor/store-ad', 'App\Http\Controllers\Vendor\AdController@store');
+    Route::get('vendor/edit-ad/{id}', 'App\Http\Controllers\Vendor\AdController@edit');
+    Route::put('vendor/update-ad/{id}', 'App\Http\Controllers\Vendor\AdController@update');
+
+    Route::get('vendor/ad-prods/{id}', 'App\Http\Controllers\Vendor\AdController@adprod');
+    Route::post('vendor/ad-prod-store/{id}', 'App\Http\Controllers\Vendor\AdController@adprodstore');
+
 
     // Coupons
 

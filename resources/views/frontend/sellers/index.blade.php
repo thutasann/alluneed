@@ -29,7 +29,7 @@
 
                             @php
                                 $user_id = $v->id;
-                                $vendor = App\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
+                                $vendor = App\Models\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
                                 $encrypted = encrypt_decrypt('encrypt', $user_id);
                             @endphp
 

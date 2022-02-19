@@ -177,6 +177,9 @@
                 @foreach($products as $prod_item)
 
                     @php
+                        $user_id = $prod_item->user->id;
+                        $vendor = App\Models\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
+                        $alluneed = App\Models\User::where('id', $user_id)->get(); // For displaying AllUNeed product
                         $truncated = Illuminate\Support\Str::limit($prod_item->small_description, 450);
                         $encrypted = encrypt_decrypt('encrypt', $prod_item->vendor_id);
                     @endphp
@@ -196,15 +199,70 @@
 
                             <p class="user mt-0 pb-3">
 
+                                @if($prod_item->user->Image)
 
-                                <a href="#">
-                                    <img src="{{ asset('assets/img/user.jpg')}}" class="avatar" alt="Vendor" title="Vendor">
-                                </a>
+                                    {{-- for displaying Vendors image --}}
+                                    @foreach ($vendor as $vname)
+                                        @php
+                                            $slname   = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($vname->vendor_name)));
+                                        @endphp
+                                        <a href="{{ url('vp/'.$slname.'/'.$encrypted)}}">
+                                            <img src="{{ asset('uploads/profile/'.$prod_item->user->Image) }}" class="avatar" alt="{{ $vname->vendor_name }}" title="{{ $vname->vendor_name }}">
+                                        </a>
+                                    @endforeach
+
+                                    {{-- For displaying AllUNeed image  --}}
+                                    @if (count($vendor) === 0)
+                                        @foreach ($alluneed as $aun)
+                                            <a href="{{ url('/')}}">
+                                                <img src="{{ asset('uploads/profile/'.$prod_item->user->Image) }}" class="avatar" alt="{{ $aun->name }}" title="{{ $aun->name }}">
+                                            </a>
+                                        @endforeach
+                                    @endif
+
+                                @else
+
+                                    {{-- for displaying Vendors image --}}
+                                    @foreach ($vendor as $vname)
+                                        @php
+                                            $slname   = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($vname->vendor_name)));
+                                        @endphp
+                                        <a href="{{ url('vendor/'.$slname.'/'.$encrypted)}}">
+                                            <img src="{{ asset('assets/img/user.jpg')}}"  class="avatar" alt="{{ $vname->vendor_name }}" title="{{ $vname->vendor_name }}">
+                                        </a>
+                                    @endforeach
+
+                                    {{-- For displaying AllUNeed image  --}}
+                                    @if (count($vendor) === 0)
+                                        @foreach ($alluneed as $aun)
+                                            <a href="{{ url('/')}}">
+                                                <img src="{{ asset('assets/img/user.jpg')}}" class="avatar" alt="{{ $aun->name }}" title="{{ $aun->name }}">
+                                            </a>
+                                        @endforeach
+                                    @endif
+
+                                @endif
 
                                 <strong class="vname">
-                                    <a href="" class="text-primary">
-                                        Vendor
-                                    </a>
+                                    {{-- for displaying Vendor name --}}
+                                    @foreach ($vendor as $vname)
+                                        @php
+                                            $slname   = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($vname->vendor_name)));
+                                        @endphp
+                                        <a href="{{ url('vp/'.$slname.'/'.$encrypted)}}" class="text-primary">
+                                            {{ $vname->vendor_name }}
+                                        </a>
+                                    @endforeach
+
+                                    {{-- for displaying AllUNeed --}}
+                                    @if(count($vendor) === 0)
+                                        @foreach ($alluneed as $aun)
+                                            <a href="{{ url('/')}}" class="text-primary">
+                                                AllUNeed
+                                            </a>
+                                        @endforeach
+                                    @endif
+
                                 </strong>
 
                                 <span class="timeago">

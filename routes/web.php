@@ -107,6 +107,10 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function (){
     // Notifications
 
     // Vendor Request confirm
+    Route::get('/vendor-requests', 'App\Http\Controllers\Admin\RequestVendorController@index');
+    Route::get('/vendor-request-confirm/{id}', 'App\Http\Controllers\Admin\RequestVendorController@confirm');
+    Route::post('vendor-confirmed/{id}', 'App\Http\Controllers\Admin\RequestVendorController@confirmed');
+
 
     // Slider for Advertising
 
@@ -176,12 +180,21 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function (){
 // VENDOR ROUTES
 Route::group(['middleware' => ['auth', 'isVendor']], function () {
 
-    // Vendor dashboard
-    Route::get('/vendor-dashboard', function () {
-        return view('vendor.dashboard');
-    });
+    // Vendor Dashboard
+    Route::get('/vendor-dashboard', 'App\Http\Controllers\Vendor\VendorDashboardController@index');
 
     // Products
+    Route::get('/vendor/products', 'App\Http\Controllers\Vendor\ProductController@index');
+    Route::get('/vendor/add-products', 'App\Http\Controllers\Vendor\ProductController@add');
+    Route::post('/vendor/store-products', 'App\Http\Controllers\Vendor\ProductController@store');
+    Route::get('/vendor/product-edit/{id}/{name}', 'App\Http\Controllers\Vendor\ProductController@edit');
+    Route::put('/vendor/update-product/{id}', 'App\Http\Controllers\Vendor\ProductController@update');
+    Route::get('/vendor/product-delete/{id}', 'App\Http\Controllers\Vendor\ProductController@delete');
+    Route::get('/vendor/product-deleted-records', 'App\Http\Controllers\Vendor\ProductController@deletedrecords');
+    Route::get('/vendor/product-re-store/{id}', 'App\Http\Controllers\Vendor\ProductController@deletedrestore');
+    Route::get('/vendor/delete-product-trash/{id}', 'App\Http\Controllers\Vendor\ProductController@deletetrash');
+    Route::get('/vendor/empty-product-trash', 'App\Http\Controllers\Vendor\ProductController@emptytrash');
+
 
     // Advertising
 

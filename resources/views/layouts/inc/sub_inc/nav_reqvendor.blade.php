@@ -1,9 +1,16 @@
 <li class="nav-item dropdown no-arrow mx-1">
-    
+
     <a class="nav-link dropdown-toggle" tittle="Vendor Request" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-envelope fa-fw"></i>
+        @php
+            $unread_noti = App\Models\Models\Request_vendor::where('status','0')->where('confirm', '0')->get();
+        @endphp
         <span class="badge badge-danger badge-counter">
-            9+
+            @if(count($unread_noti) > 9)
+                9+
+            @else
+                {{ count($unread_noti) }}
+            @endif
         </span>
     </a>
 
@@ -13,20 +20,28 @@
             Vendor Requests
         </h6>
 
-        @for ($i = 0; $i < 5; $i++)
-            <a class="dropdown-item d-flex align-items-center" href="#">
+        @php
+            use App\Models\Models\Request_vendor;
+            $req_all = Request_vendor::where('status',  '!=', '2')->where('confirm', '0')->orderByRaw('created_at DESC')->get();
+        @endphp
+
+        @foreach($req_all as $i)
+            <a class="dropdown-item d-flex align-items-center" href="{{ url('vendor-request-confirm/'.$i->id) }}">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" alt="Vendor">
+                    @if($i->users->Image)
+                        <img class="rounded-circle" src="{{ asset('uploads/profile/'.$i->users->Image) }}" alt="{{ $i->users->name }}">
+                    @else
+                        <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" alt="{{ $i->users->name }}">
+                    @endif
                     <div class="status-indicator bg-success"></div>
                 </div>
-                <div class="font-weight-bold">
-                    <div>Vendor Rquest from <span class="text-primary">Win Mobile</span></div>
-                    <div class="small text-gray-500">Win mobile · 
-                    12/12/2020</div>
+                <div class="{{ $i->status == '0' ? 'font-weight-bold' : '' }}">
+                    <div>Vendor Rquest from <span class="text-primary">'{{ $i->vendor_name }}'</span></div>
+                    <div class="small text-gray-500">{{ $i->users->name }} ·
+                    {{ $i->created_at->diffForHumans() }}</div>
                 </div>
             </a>
-        @endfor
-
+        @endforeach
 
         <a class="dropdown-item text-center text-gray-700 py-3" href="{{ url('/vendor-requests') }}" style="background-color: #efefef;">
             View All Vendor Requests

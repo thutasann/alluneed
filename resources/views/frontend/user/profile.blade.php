@@ -177,15 +177,6 @@
                             </div>
                             @endif
 
-                            @if(Auth::user()->role_as == 'vendor')
-                                <div class="alert alert-info go-vendor">
-                                    Your Account is a Vendor account in our website 'AllUNeed'. You can now upload products in <br> 'Vendor Dashboard ' and sell these products in our website.
-                                    <a href="{{ url('/vendor-dashboard') }}" target='_blank' class='btn btn-info py-2 waves-effect'>
-                                    Go to Vendor Dashboard <i class="fas fa-arrow-alt-circle-right"></i>
-                                    </a>
-                                </div>
-                            @else
-                            @endif
 
                             @if(Auth::user()->role_as == 'vendor')
                             <div class="alert alert-info go-vendor">

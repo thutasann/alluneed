@@ -96,15 +96,48 @@
                 </div>
 
                 <div class='my-3'>
-                    <a href="#" class='py-3'>
+                    @php
+                        $user_id = $products->user->id;
+                        $vendor = App\Models\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
+                        $alluneed = App\Models\User::where('id', $user_id)->get(); // For displaying AllUNeed product
+                        $encrypted = encrypt_decrypt('encrypt', $products->vendor_id);
+                    @endphp
 
-                        <img src="{{ asset('assets/img/user.jpg')}}" alt="vendor image" class='user-img' alt="Vendor" title='Vendor'>
+                    @foreach ($vendor as $vname)
+                        @php
+                            $slname   = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($vname->vendor_name)));
+                        @endphp
+                        <a href="{{ url('vp/'.$slname.'/'.$encrypted)}}" class='py-3'>
 
-                        <span class='name ml-1 mt-2'>
-                            Vendor
-                        </span>
+                            @if($products->user->Image)
+                                <img src="{{ asset('uploads/profile/'.$products->user->Image) }}" class="user-img" alt="{{ $vname->vendor_name }}" title="{{ $vname->vendor_name }}">
+                            @else
+                                <img src="{{ asset('assets/img/user.jpg')}}" alt="vendor image" class='user-img' alt="{{ $vname->vendor_name }}" title='{{ $vname->vendor_name }}'>
+                            @endif
 
-                    </a>
+                            <span class='name ml-1 mt-2'>
+                                {{ $vname->vendor_name }}
+                            </span>
+                        </a>
+                    @endforeach
+
+                    {{-- For displaying AllUNeed image  --}}
+                    @if (count($vendor) === 0)
+                        @foreach ($alluneed as $aun)
+                            <a href="{{ url('/')}}" class='py-3'>
+
+                                @if($products->user->Image)
+                                    <img src="{{ asset('uploads/profile/'.$products->user->Image) }}" class="user-img" alt="{{ $aun->name }}" title="{{ $aun->name }}">
+                                @else
+                                    <img src="{{ asset('assets/img/user.jpg')}}" alt="vendor image" class='user-img' alt="{{ $aun->name }}" title='{{ $aun->name }}'>
+                                @endif
+
+                                <span class='name ml-1 mt-2'>
+                                    AllUNeed
+                                </span>
+                            </a>
+                        @endforeach
+                    @endif
 
                     <p class="text-muted mt-2 font-weight-bolder">
                         Uploaded at : {{ date('F j, Y',strtotime($products->created_at)) }}

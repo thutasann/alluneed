@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
     public function index()
     {
         if (Auth::user()) {
@@ -22,7 +23,7 @@ class CartController extends Controller
             $user_id = Auth::user()->id;
 
             $recent_prod = ActivityLog::where('status', '!=', '1')
-                ->where('user_id', $user_id)
+            ->where('user_id', $user_id)
                 ->where('type', 'view detail')
                 ->orderByRaw('created_at DESC')
                 ->limit(10)
@@ -95,5 +96,88 @@ class CartController extends Controller
         }
     }
 
+    public function updatetocart(Request $request)
+    {
+        $prod_id = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        if (Cookie::get('shopping_cart')) {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
+
+            $item_id_list = array_column($cart_data, 'item_id');
+            $prod_id_is_there = $prod_id;
+
+            if (in_array($prod_id_is_there, $item_id_list)) {
+                foreach ($cart_data as $keys => $values) {
+                    if ($cart_data[$keys]["item_id"] == $prod_id) {
+                        $cart_data[$keys]["item_quantity"] =  $quantity;
+                        $ttprice = ($cart_data[$keys]["item_price"] * $quantity);
+                        $grandtotalprice = number_format($ttprice, 2);
+                        $item_data = json_encode($cart_data);
+
+                        $minutes = 60;
+                        Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                        return response()->json([
+                            'status' => '"' . $cart_data[$keys]["item_name"] . '" Quantity Updated',
+                            'gtprice' => '' . $grandtotalprice . ''
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+
+    public function cartloadbyajax()
+    {
+        if (Cookie::get('shopping_cart')) {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
+            $totalcart = count($cart_data);
+
+            echo json_encode(array('totalcart' => $totalcart));
+            die;
+            return;
+        } else {
+            $totalcart = "0";
+            echo json_encode(array('totalcart' => $totalcart));
+            die;
+            return;
+        }
+    }
+
+    public function deletefromcart(Request $request)
+    {
+        $prod_id = $request->input('product_id');
+
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+
+        $item_id_list = array_column($cart_data, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if (in_array($prod_id_is_there, $item_id_list)) {
+            foreach ($cart_data as $keys => $values) {
+                if ($cart_data[$keys]["item_id"] == $prod_id) {
+                    unset($cart_data[$keys]);
+                    $item_data = json_encode($cart_data);
+                    $minutes = 60;
+                    Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return response()->json(['status' => 'Item Removed from Cart']);
+                }
+            }
+        }
+    }
+
+    public function clearcart()
+    {
+        Cookie::queue(Cookie::forget('shopping_cart'));
+        return response()->json(['status' => 'Your Cart is Cleared']);
+    }
+
+    public function thankyou()
+    {
+        return view('frontend.thank-you');
+    }
 
 }

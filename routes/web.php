@@ -46,7 +46,7 @@ Route::get('/load-cart-data', 'App\Http\Controllers\Frontend\CartController@cart
 Route::post('update-to-cart', 'App\Http\Controllers\Frontend\CartController@updatetocart');
 Route::delete('delete-from-cart', 'App\Http\Controllers\Frontend\CartController@deletefromcart');
 Route::get('clear-cart', 'App\Http\Controllers\Frontend\CartController@clearcart');
-// Route::get('thank-you', 'Frontend\CartController@thankyou');
+Route::get('thank-you', 'App\Http\Controllers\Frontend\CartController@thankyou');
 
 
 // Review
@@ -86,6 +86,9 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
 
 
     // WishList
+    Route::get('/wishlist', 'App\Http\Controllers\Frontend\WishlistController@index');
+    Route::post('/add-wishlist', 'App\Http\Controllers\Frontend\WishlistController@storewishlist');
+    Route::post('/remove-from-wishlist', 'App\Http\Controllers\Frontend\WishlistController@removewishlist');
 
     // Activity log / Orders / Voucher
     Route::get('activityall/{user_name}', 'App\Http\Controllers\Frontend\ActivityController@activityindex');

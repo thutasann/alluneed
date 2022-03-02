@@ -12,6 +12,11 @@ $(document).ready(function(){
             'description': $('textarea[name=description]').val(),
         }
 
+        if(data.vendor_name == ""){
+            alert("Vendor name is required");
+        }
+
+        else{
 
         $.ajaxSetup({
             headers: {
@@ -85,6 +90,8 @@ $(document).ready(function(){
             }
 
         });
+
+        }
 
 
 

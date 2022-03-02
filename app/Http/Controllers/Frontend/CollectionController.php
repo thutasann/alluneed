@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Models\ActivityLog;
 use App\Models\Models\Category;
 use App\Models\Models\Groups;
 use App\Models\Models\Like;
@@ -297,12 +298,12 @@ class CollectionController extends Controller
                 ->get();
 
             // Activity log ---
-            // $user_id = Auth::user()->id;
-            // $activities = new ActivityLog();
-            // $activities->user_id = $user_id;
-            // $activities->prod_id = $d_prod_id;
-            // $activities->type = 'view detail';
-            // $activities->save();
+            $user_id = Auth::user()->id;
+            $activities = new ActivityLog();
+            $activities->user_id = $user_id;
+            $activities->prod_id = $d_prod_id;
+            $activities->type = 'view detail';
+            $activities->save();
             // Activity log ---
 
             return view('frontend.collections.products-view')->with('products', $products)
@@ -338,7 +339,7 @@ class CollectionController extends Controller
         if (count($data)) {
             return $data;
         } else {
-            return ['value' => 'No resule found', 'id' => ''];
+            return ['value' => 'No result found', 'id' => ''];
         }
     }
 
@@ -381,12 +382,12 @@ class CollectionController extends Controller
 
 
             // Activity log ---
-            // $user_id = Auth::user()->id;
-            // $activities = new ActivityLog();
-            // $activities->user_id = $user_id;
-            // $activities->description = $prodsearch;
-            // $activities->type = 'search';
-            // $activities->save();
+            $user_id = Auth::user()->id;
+            $activities = new ActivityLog();
+            $activities->user_id = $user_id;
+            $activities->description = $prodsearch;
+            $activities->type = 'search';
+            $activities->save();
             // Activity log ---
 
 
@@ -401,12 +402,12 @@ class CollectionController extends Controller
             $decrypted = $this->encrypt_decrypt('decrypt', $vendor_id);
 
             // Activity log ---
-            // $user_id = Auth::user()->id;
-            // $activities = new ActivityLog();
-            // $activities->user_id = $user_id;
-            // $activities->vendor_id = $decrypted;
-            // $activities->type = 'vendor view';
-            // $activities->save();
+            $user_id = Auth::user()->id;
+            $activities = new ActivityLog();
+            $activities->user_id = $user_id;
+            $activities->vendor_id = $decrypted;
+            $activities->type = 'vendor view';
+            $activities->save();
             // Activity log ---
 
             $products = Products::where('status', '0')

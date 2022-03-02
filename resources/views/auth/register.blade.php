@@ -96,7 +96,7 @@
                                         <div class="md-form form-group{{ $errors->has('password') ? ' has-error' : '' }} input-with-pre-icon">
                                             <i class="fas fa-lock input-prefix"></i>
                                             <input id="password" type="password" class="form-control validate" name="password" required>
-                                            <label for="password">Password</label>
+                                            <label for="password">Password (must be at least 8 characters)</label>
                                             <button id="eye-btn" type="button" class="fas fa-eye" onclick="myFunction_psw()"></button>
                                         </div>
                                     </div>

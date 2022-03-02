@@ -19,7 +19,7 @@
                 <span>
                     @if(count($products) == 0)
                     @else
-                        <a href="{{ url('vendor/empty-product-trash') }}" class='btn btn-sm bg-gradient-danger p-1 text-white'>
+                        <a href="{{ url('v/empty-product-trash') }}" class='btn btn-sm bg-gradient-danger p-1 text-white'>
                             <i class="far fa-trash-alt mr-1"></i>Empty Trash
                         </a>
                     @endif
@@ -102,11 +102,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('vendor/product-re-store/' .$encrypted) }}" title="Restore" class="mr-1 badge badge-pill text-white px-2 py-1 bg-gradient-success">
+                                            <a href="{{ url('v/product-re-store/' .$encrypted) }}" title="Restore" class="mr-1 badge badge-pill text-white px-2 py-1 bg-gradient-success">
                                                 <i class="fas fa-trash-restore-alt"></i>
                                             </a>
                                             |
-                                            <a href="{{ url('vendor/delete-product-trash/'.$encrypted) }}" title="Delete Trash" class="ml-1 badge badge-pill text-white px-2 py-1 bg-gradient-danger">
+                                            <a href="{{ url('v/delete-product-trash/'.$encrypted) }}" title="Delete Trash" class="ml-1 badge badge-pill text-white px-2 py-1 bg-gradient-danger">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>

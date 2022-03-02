@@ -5,7 +5,7 @@
                 <h5 class="modal-title text-dark font-weight-bold" id="exampleModalLabel">Upload Product</h5>
                 <span class="font-weight-bold" style="cursor: pointer; font-size: 1.2rem;" data-dismiss="modal" aria-label="Close">&times;</span>
             </div>
-            <form action="{{ url('vendor/ad-prod-store/'.$slider->id) }}" method="POST">
+            <form action="{{ url('v/ad-prod-store/'.$slider->id) }}" method="POST">
                 {{ csrf_field() }}
 
                 <div class="modal-body">

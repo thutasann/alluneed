@@ -32,6 +32,7 @@ $('#pro_update_form').on('submit', function(event){
     //     var roles = '';
     // }
 
+
     if(count_error == 0)
     {
         $.ajaxSetup({

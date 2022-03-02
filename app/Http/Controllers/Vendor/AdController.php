@@ -65,9 +65,15 @@ class AdController extends Controller
         }
 
         $slider->status = $request->input('status') == true ?  '1' : '0';
-        $slider->save();
 
-        return redirect()->back()->with('status', 'Your Ad was uploaded successfully !');
+        if ($request->hasfile('slider_image') == '') {
+            return redirect()->back()->with('status_image', 'Please Choose One Image');
+        }
+        else{
+            $slider->save();
+            return redirect()->back()->with('status', 'Your Ad was uploaded successfully !');
+        }
+        
     }
 
 

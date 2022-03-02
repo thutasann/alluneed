@@ -36,7 +36,7 @@ Route::get('ad/{link}', 'App\Http\Controllers\Frontend\CollectionController@adin
 
 
 // Vendor profile view
-Route::get('vp/{vendor_name}/{vendor_id}', 'App\Http\Controllers\Frontend\CollectionController@vendorview');
+Route::get('vendor/{vendor_name}/{vendor_id}', 'App\Http\Controllers\Frontend\CollectionController@vendorview');
 
 
 // cart
@@ -66,8 +66,6 @@ Route::get('search', 'App\Http\Controllers\Frontend\CollectionController@prodsea
 
 
 
-
-
 // USER ROUTES (isUser is from Kernel.php)
 Route::group(['middleware' => ['auth', 'isUser']], function () {
 
@@ -84,7 +82,6 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
     Route::post('/check-user', 'App\Http\Controllers\Frontend\UserController@checkuser');
 
 
-
     // WishList
     Route::get('/wishlist', 'App\Http\Controllers\Frontend\WishlistController@index');
     Route::post('/add-wishlist', 'App\Http\Controllers\Frontend\WishlistController@storewishlist');
@@ -93,8 +90,9 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
     // Activity log / Orders / Voucher
     Route::get('activityall/{user_name}', 'App\Http\Controllers\Frontend\ActivityController@activityindex');
 
-
     // Coupon code
+
+
 
     // Checkout
 
@@ -198,25 +196,31 @@ Route::group(['middleware' => ['auth', 'isVendor']], function () {
     Route::post('/vendor/store-products', 'App\Http\Controllers\Vendor\ProductController@store');
     Route::get('/vendor/product-edit/{id}/{name}', 'App\Http\Controllers\Vendor\ProductController@edit');
     Route::put('/vendor/update-product/{id}', 'App\Http\Controllers\Vendor\ProductController@update');
-    Route::get('/vendor/product-delete/{id}', 'App\Http\Controllers\Vendor\ProductController@delete');
+    Route::get('/v/product-delete/{id}', 'App\Http\Controllers\Vendor\ProductController@delete');
     Route::get('/vendor/product-deleted-records', 'App\Http\Controllers\Vendor\ProductController@deletedrecords');
-    Route::get('/vendor/product-re-store/{id}', 'App\Http\Controllers\Vendor\ProductController@deletedrestore');
-    Route::get('/vendor/delete-product-trash/{id}', 'App\Http\Controllers\Vendor\ProductController@deletetrash');
-    Route::get('/vendor/empty-product-trash', 'App\Http\Controllers\Vendor\ProductController@emptytrash');
+    Route::get('/v/product-re-store/{id}', 'App\Http\Controllers\Vendor\ProductController@deletedrestore');
+    Route::get('/v/delete-product-trash/{id}', 'App\Http\Controllers\Vendor\ProductController@deletetrash');
+    Route::get('/v/empty-product-trash', 'App\Http\Controllers\Vendor\ProductController@emptytrash');
 
 
     // Advertising
     Route::get('vendor/manage-ads', 'App\Http\Controllers\Vendor\AdController@index');
     Route::get('vendor/create-ads', 'App\Http\Controllers\Vendor\AdController@create');
     Route::post('vendor/store-ad', 'App\Http\Controllers\Vendor\AdController@store');
-    Route::get('vendor/edit-ad/{id}', 'App\Http\Controllers\Vendor\AdController@edit');
-    Route::put('vendor/update-ad/{id}', 'App\Http\Controllers\Vendor\AdController@update');
+    Route::get('v/edit-ad/{id}', 'App\Http\Controllers\Vendor\AdController@edit');
+    Route::put('v/update-ad/{id}', 'App\Http\Controllers\Vendor\AdController@update');
 
-    Route::get('vendor/ad-prods/{id}', 'App\Http\Controllers\Vendor\AdController@adprod');
-    Route::post('vendor/ad-prod-store/{id}', 'App\Http\Controllers\Vendor\AdController@adprodstore');
+    Route::get('v/ad-prods/{id}', 'App\Http\Controllers\Vendor\AdController@adprod');
+    Route::post('v/ad-prod-store/{id}', 'App\Http\Controllers\Vendor\AdController@adprodstore');
 
 
     // Coupons
+    Route::get('vendor/coupons', 'App\Http\Controllers\Vendor\CouponController@vcoupon');
+    Route::post('vendor/coupon-store', 'App\Http\Controllers\Vendor\CouponController@store');
+    Route::get('v/coupon-edit/{id}', 'App\Http\Controllers\Vendor\CouponController@edit');
+    Route::put('v/coupon-update/{id}', 'App\Http\Controllers\Vendor\CouponController@update');
+    Route::post('v/coupon-send/{id}', 'App\Http\Controllers\Vendor\CouponController@sendcoupon');
+
 
     // Customers
 

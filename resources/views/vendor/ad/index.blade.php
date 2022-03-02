@@ -65,11 +65,11 @@
                                             </td>
                                             <td>{{ date('F j, Y',strtotime($item->created_at)) }}</td>
                                             <td>
-                                                <a href="{{ url('vendor/ad-prods/'.$encrypted) }}" title="Add Products" class="badge badge-pill text-white mr-1 px-2 py-1 bg-gradient-warning">
+                                                <a href="{{ url('v/ad-prods/'.$encrypted) }}" title="Add Products" class="badge badge-pill text-white mr-1 px-2 py-1 bg-gradient-warning">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </a>
                                                 |
-                                                <a href="{{ url('vendor/edit-ad/'.$encrypted) }}" title="Edit Ad" class="badge badge-pill text-white ml-1 px-2 py-1 bg-gradient-primary">
+                                                <a href="{{ url('v/edit-ad/'.$encrypted) }}" title="Edit Ad" class="badge badge-pill text-white ml-1 px-2 py-1 bg-gradient-primary">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </td>

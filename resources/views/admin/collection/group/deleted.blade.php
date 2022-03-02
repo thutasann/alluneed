@@ -86,12 +86,12 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ url('group-re-store/' .$encrypted) }}" title="Re-Store" class="badge badge-pill text-white px-2 py-1 mr-1 bg-gradient-success">
-                                                    <i class="fas fa-trash-restore-alt"></i>
+                                                <a href="{{ url('group-re-store/' .$encrypted) }}" title="Restore" class="badge badge-pill text-white px-2 py-2 mr-1 bg-gradient-success">
+                                                    Restore <i class="fas fa-trash-restore-alt"></i>
                                                 </a>
                                                 |
-                                                <a href="{{ url('delete-group-trash/'.$encrypted) }}" title="Delete Trash" class="badge badge-pill text-white px-2 m-1 py-1 bg-gradient-danger">
-                                                    <i class="fas fa-trash-alt"></i>
+                                                <a href="{{ url('delete-group-trash/'.$encrypted) }}" title="Delete Trash" class="badge badge-pill text-white px-2 m-1 py-2 bg-gradient-danger">
+                                                    Delete <i class="fas fa-trash-alt"></i>
                                                 </a>
                                             </td>
                                         </tr>

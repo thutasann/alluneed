@@ -89,7 +89,7 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             |
-                                            <a href="{{ url('vendor/product-delete/'.$encrypted) }}" title="Move to Trash" class="ml-1 badge badge-pill text-white px-2 py-1 bg-gradient-danger">
+                                            <a href="{{ url('v/product-delete/'.$encrypted) }}" title="Move to Trash" class="ml-1 badge badge-pill text-white px-2 py-1 bg-gradient-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

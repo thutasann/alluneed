@@ -349,7 +349,7 @@
                                         {{-- Meta Title required--}}
                                         <div class='col-md-12'>
                                             <div class='form-group'>
-                                                <label>Meta Title</label>
+                                                <label>Meta Title (For better product search)</label>
                                                 <input name="meta_title" placeholder='Enter Meta Title' class='form-control'>
                                             </div>
                                         </div>

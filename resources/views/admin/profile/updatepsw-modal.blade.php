@@ -15,7 +15,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>New Password</label>
+                            <label>New Password (must be at least 8 characters)</label>
                             <input type="password" class="form-control" name='newpsw' required>
                         </div>
 

@@ -221,7 +221,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group focused">
                                             <label class="form-control-label">Full Name</label>
-                                            <input type="text" id="fname" name="fname" class="form-control form-control-alternative" placeholder="Full Name"  value="{{ Auth::user()->name}}" spellcheck="false">
+                                            <input type="text" id="fname" name="fname" class="form-control form-control-alternative" placeholder="Full Name"  value="{{ Auth::user()->name}}" spellcheck="false" required>
                                             </div>
                                         </div>
 

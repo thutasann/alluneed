@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Models\ActivityLog;
 use App\Models\Models\Request_vendor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,6 +16,14 @@ class UserController extends Controller
 {
     public function myprofile($user_name)
     {
+        // Activity log ---
+        $user_id = Auth::user()->id;
+        $activities = new ActivityLog();
+        $activities->user_id = $user_id;
+        $activities->type = 'profile view';
+        $activities->save();
+        // Activity log ---
+
         $user_id = Auth::user()->id;
         $req_pending = Request_vendor::where('user_id', $user_id)->where('confirm', '0')->first();
         $vendor_name = Request_vendor::where('user_id', $user_id)->where('confirm', '1')->get();

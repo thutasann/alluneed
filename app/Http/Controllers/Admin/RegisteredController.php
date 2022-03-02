@@ -49,6 +49,6 @@ class RegisteredController extends Controller
         $user->role_as = $request->input('roles');
         $user->isban = $request->input('isban');
         $user->update();
-        return redirect()->back()->with('status', 'Updated Successfully');
+        return redirect()->back()->with('status', 'User account was Updated Successfully');
     }
 }

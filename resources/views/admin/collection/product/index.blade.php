@@ -53,6 +53,7 @@
                                     <th>Name</th>
                                     <th>Brand</th>
                                     <th>Category</th>
+                                    <th>Vendor</th>
                                     <th>Qty</th>
                                     <th>Image</th>
                                     <th>Status</th>
@@ -65,6 +66,9 @@
                                     @php
                                         $slname   = preg_replace('/[^a-z0-9]+/i', '_', trim(strtolower($item->name)));
                                         $encrypted = encrypt_decrypt('encrypt', $item->id);
+                                        $user_id = $item->user->id;
+                                        $vendor = App\Models\Models\Request_vendor::where('user_id', $user_id)->get(); // For displaying vendor name
+                                        $alluneed = App\Models\User::where('id', $user_id)->get(); // For displaying AllUNeed product
                                     @endphp
 
                                     <tr>
@@ -72,6 +76,18 @@
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->subcategory->name}}</td>
                                         <td>{{$item->subcategory->category->name}}</td>
+                                        <td>
+                                            @foreach ($vendor as $vname)
+                                                {{ $vname->vendor_name }}
+                                            @endforeach
+
+                                            {{-- For displaying AllUNeed image  --}}
+                                            @if (count($vendor) === 0)
+                                                @foreach ($alluneed as $aun)
+                                                    {{ $aun->name }}
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td>{{$item->quantity}}</td>
                                         <td>
                                             <img src="{{ asset('uploads/products/prod/'.$item->prod_image) }}" alt="{{ $item->name }}" width="50px">

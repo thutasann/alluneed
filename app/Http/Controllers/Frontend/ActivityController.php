@@ -15,14 +15,14 @@ class ActivityController extends Controller
     {
         if (Auth::user()) {
             if ($request->get('actdel')) {
-                $id = Crypt::decrypt(Request::get('actdel'));
+                $id = Crypt::decrypt($request->get('actdel'));
                 $activities = ActivityLog::find($id);
                 $activities->status = "1"; //0=show,1=delete
                 $activities->update();
                 return redirect()->back()->with('actdel', 'One Activity Moved to the Trash');
             }
             else if ($request->get('actres')) {
-                $id = Crypt::decrypt(Request::get('actres'));
+                $id = Crypt::decrypt($request->get('actres'));
                 $activities = ActivityLog::find($id);
                 $activities->status = "0"; //0=show,1=delete
                 $activities->update();

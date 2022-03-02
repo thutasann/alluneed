@@ -17,7 +17,7 @@
                     <div class="md-form mb-4 input-with-pre-icon form-group">
                         <i class="fas fa-lock input-prefix"></i>
                         <input type="password" class="form-control validate" name='newpsw' required>
-                        <label>New Password</label>
+                        <label>New Password (must be at least 8 characters)</label>
                     </div>
                     <div class="md-form mb-4 mt-2 float-right">
                         <button class="btn btn-primary" type="submit" style="outline:none;">Update Password</button>

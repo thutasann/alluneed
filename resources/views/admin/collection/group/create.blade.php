@@ -47,7 +47,7 @@
 
                                     <div class='col-md-12'>
                                         <div class="form-group">
-                                            <label>Custom URL</label>
+                                            <label>Custom URL (to identify specific web pages)</label>
                                             <input type="text" id="url" name="url" class='form-control bg-white' placeholder='Custom URL' readonly>
                                         </div>
                                     </div>
@@ -70,7 +70,7 @@
                                     <div class="col-md-12 my-4">
                                         <div class='form-group'>
                                             <button type='submit' class='btn btn-primary'>Add Group</button>
-                                            <button type='reset' class='btn btn-secondary'>Cancel</button>
+                                            <button type='reset' class='btn btn-secondary'>Rest</button>
                                         </div>
                                     </div>
                                 </div>

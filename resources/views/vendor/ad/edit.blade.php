@@ -31,7 +31,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ url('vendor/update-ad/'.$slider->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('v/update-ad/'.$slider->id) }}" method="POST" enctype="multipart/form-data">
 
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}

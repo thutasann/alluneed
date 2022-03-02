@@ -87,7 +87,7 @@
 
                             @php
                                 $vendor_id = $i->vendor_id;
-                                $vendor = App\Models\Request_vendor::where('user_id', $vendor_id)->get(); // For displaying vendor name
+                                $vendor = App\Models\Models\Request_vendor::where('user_id', $vendor_id)->get(); // For displaying vendor name
                             @endphp
 
                             <div class="col-lg-6 mb-4">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Models\ActivityLog;
+use App\Models\Models\Order;
+use App\Models\Models\Orderitem;
 use App\Models\Models\Request_vendor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,6 +16,24 @@ use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+    private function encrypt_decrypt($action, $string)
+    {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_iv = 'This is my secret iv';
+        $secret_key = '1f4276388ad3214c873428dbef42243f';
+        $key = hash('sha256', $secret_key);
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+        if ($action == 'encrypt') {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if ($action == 'decrypt') {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
+
     public function myprofile($user_name)
     {
         // Activity log ---
@@ -120,6 +140,33 @@ class UserController extends Controller
                 'description' => $request->description,
             ]);
         }
+    }
+
+
+    public function orderindex($user_name)
+    {
+
+        $user_id = Auth::user()->id;
+        $orders = Order::where('user_id', $user_id)
+            ->get();
+
+        return view('frontend.user.orderlist')->with('orders', $orders);
+    }
+
+    public function voucherindex($order_id, $user_name)
+    {
+        $dorder_id = $this->encrypt_decrypt('decrypt', $order_id);
+        $user_id = Auth::user()->id;
+
+        $order = Order::where('id', $dorder_id)
+            ->where('user_id', $user_id)
+            ->get();
+
+        $orderitem = Orderitem::where('order_id', $dorder_id)
+            ->get();
+
+        return view('frontend.user.invoice')->with('orderitem', $orderitem)
+            ->with('order', $order);
     }
 
 

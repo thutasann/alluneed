@@ -36,7 +36,7 @@ Route::get('ad/{link}', 'App\Http\Controllers\Frontend\CollectionController@adin
 
 
 // Vendor profile view
-Route::get('vendor/{vendor_name}/{vendor_id}', 'App\Http\Controllers\Frontend\CollectionController@vendorview');
+Route::get('vp/{vendor_name}/{vendor_id}', 'App\Http\Controllers\Frontend\CollectionController@vendorview');
 
 
 // cart
@@ -89,13 +89,20 @@ Route::group(['middleware' => ['auth', 'isUser']], function () {
 
     // Activity log / Orders / Voucher
     Route::get('activityall/{user_name}', 'App\Http\Controllers\Frontend\ActivityController@activityindex');
+    Route::get('orders/{user_name}', 'App\Http\Controllers\Frontend\UserController@orderindex');
+    Route::get('voucher/{order_id}/{user_name}', 'App\Http\Controllers\Frontend\UserController@voucherindex');
+
+
 
     // Coupon code
-
+    Route::post('check-coupon-code', 'App\Http\Controllers\Frontend\CheckoutController@checkingcoupon');
 
 
     // Checkout
-
+    Route::get('checkout', 'App\Http\Controllers\Frontend\CheckoutController@index');
+    Route::post('/confirm-razorpay-payment', 'App\Http\Controllers\Frontend\CheckoutController@checkamount');
+    Route::post('/place-order', 'App\Http\Controllers\Frontend\CheckoutController@storeorder');
+    Route::post('/place-order-stripe', 'App\Http\Controllers\Frontend\CheckoutController@storeorderstripe');
 });
 
 

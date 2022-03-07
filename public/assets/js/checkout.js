@@ -44,6 +44,7 @@ $(document).ready(function(){
                     $('.coupon_code').val('');
 
                     $('.coupon_code').prop('readonly', true);
+                    $('.coupon_code').css('background-color', 'white');
                     $('.discount_price').text(discount_price);
                     $('.grandtotal_price').text(grand_total_price);
 
@@ -56,7 +57,7 @@ $(document).ready(function(){
         e.preventDefault();
 
         var data = {
-            
+
             '_token': $('input[name=_token]').val(),
             'first_name': $('input[name=fname]').val(),
             'last_name': $('input[name=Iname]').val(),
@@ -76,11 +77,11 @@ $(document).ready(function(){
             type:"POST",
             url: '/confirm-razorpay-payment',
             data: data,
-            
+
             success: function (response){
 
                 if(response.status_code == 'no_data_in_Cart')
-                {   
+                {
                     window.location.href = '/cart';
                 }
                 else
@@ -88,10 +89,10 @@ $(document).ready(function(){
                     // console.log(response.total_price);
                     // 8880202617@ybl
 
-                    var options = 
+                    var options =
                     {
-                        "key": "rzp_test_cJfl80NO7JclK2", 
-                        "amount": (response.total_price * 100), 
+                        "key": "rzp_test_cJfl80NO7JclK2",
+                        "amount": (response.total_price * 100),
                         "name": "AllYouNeed",
                         "description": "Thank For your Purchasing",
                         "image": "http://localhost:8000/assets/img/Ulogo.png",
@@ -119,8 +120,8 @@ $(document).ready(function(){
                                     'pincode': response.pincode,
                                     'place_order_razorpay' : true,
                                 },
-                                
-    
+
+
                                 success:function() {
                                     window.location.href = '/thank-you';
                                 },
@@ -128,18 +129,18 @@ $(document).ready(function(){
                             });
                         },
 
-                        "prefill": 
+                        "prefill":
                         {
                             "name": response.first_name + response.last_name,
                             "contact": response.phone_no,
                             "email": response.email
                         },
 
-                        "theme": 
+                        "theme":
                         {
                             "color": "#528FF0"
                         }
-                        
+
                     };
 
                     var rzp1 = new Razorpay(options);
@@ -148,7 +149,7 @@ $(document).ready(function(){
 
                 }
             }
-            
+
         });
 
     });

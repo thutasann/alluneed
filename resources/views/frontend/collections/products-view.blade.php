@@ -353,7 +353,7 @@
                                             <img class="card-img-100 z-depth-1 mb-4" src="{{ asset('assets/img/user.jpg')}}" alt="{{ Auth::user()->name }}" title="{{ Auth::user()->name }}">
                                         @endif
                                         </div>
-                                        <textarea name="review" id="review" class="form-control pl-3 pt-3 form-control form-control-alternative" rows="6" placeholder="Write something here..." spellcheck="false"></textarea><br/>
+                                        <textarea name="review" id="review" class="form-control pl-3 pt-3 form-control form-control-alternative" rows="6" placeholder="Write something here..." spellcheck="false" required></textarea><br/>
                                     </div>
                                     </section>
                                 </div>

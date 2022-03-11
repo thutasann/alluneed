@@ -229,15 +229,17 @@
                             <div class="text-right">
                                 <h5 class="font-weight-bolder">
                                     Sub Total :
-                                    <strong class="text-primary">${{ number_format($total, 2) }}</strong>
+                                    <strong class="text-primary">${{ number_format($total) }}</strong>
                                 </h5>
                                 <h5 class="font-weight-bolder">
                                     Discount :
+                                    <strong class="text-primary">$</strong>
                                     <strong class="text-primary discount_price">0.00</strong>
                                 </h5>
                                 <h5 class="font-weight-bolder">
                                     Grand Total :
-                                    <strong class="text-primary grandtotal_price">${{ number_format($total, 2) }}</strong>
+                                    <strong class="text-primary">$</strong>
+                                    <strong class="text-primary grandtotal_price">{{ number_format($total) }}</strong>
                                 </h5>
                             </div>
 

@@ -3,7 +3,15 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Models\Products;
+use App\Models\Models\Slider;
+use App\Models\Models\Coupon;
+use App\Models\Models\DeliTeam;
+use App\Models\Models\Order;
+use App\Models\Models\Orderitem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class VendorDashboardController extends Controller
 {
@@ -28,9 +36,136 @@ class VendorDashboardController extends Controller
         return $output;
     }
 
+    // Vendor Dashboard
     public function index()
     {
-        return view('vendor.dashboard');
+        $user_id = Auth::user()->id;
+
+        $products = Products::where('vendor_id', $user_id)
+            ->where('status', '!=', '3')
+            ->get();
+
+        $sliders = Slider::where('vendor_id', $user_id)
+            ->get();
+
+        $coupons = Coupon::where('vendor_id', $user_id)
+            ->get();
+
+        $orderitems = OrderItem::where('vendor_id', $user_id)->get();
+
+        return view('vendor.dashboard')->with('products', $products)
+            ->with('sliders', $sliders)
+            ->with('coupons', $coupons)
+            ->with('orderitems', $orderitems);
     }
+
+    // Customers
+    public function customers()
+    {
+        $vendor_id = Auth::user()->id;
+        $orderitems = OrderItem::where('vendor_id', $vendor_id)->get();
+        return view('vendor.customers.index')->with('orderitems', $orderitems);
+    }
+
+    public function orders()
+    {
+        $vendor_id = Auth::user()->id;
+        $orderitems = OrderItem::where('vendor_id', $vendor_id)->get();
+        return view('vendor.orders.index')->with('orderitems', $orderitems);
+    }
+
+    public function vieworder($order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+        if (Order::where('id', $decrypted)->exists()) {
+            $order = Order::find($decrypted);
+            return view('vendor.orders.view', compact('order'));
+        } else {
+            return redirect()->back()->with('status', 'No Order Found');
+        }
+    }
+
+    public function generateinvoice($order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+        if (Order::where('id', $decrypted)->exists()) {
+            $orders = Order::find($decrypted);
+            $data = [
+                'orders' => $orders,
+            ];
+            // return view('vendor.orders.invoice', compact('orders'));
+            $pdf = PDF::loadView('vendor.orders.invoice', $data);
+            return $pdf->download('alluneed.pdf');
+        } else {
+            return redirect()->back()->with('status', 'No Order Found');
+        }
+    }
+
+
+    public function proceedorder($order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+
+        if (Order::where('id', $decrypted)->exists()) {
+
+            $user_id = Auth::user()->id;
+            $deliteams = DeliTeam::where('status', '!=', '2')->where('vendor_id', $user_id)->get(); // 0 = free, 1 = unavailable , 2 delete
+            $orders = Order::find($decrypted);
+            return view('vendor.orders.proceed')->with('orders', $orders)->with('deliteams', $deliteams);
+        } else {
+            return redirect()->back()->with('status', 'No Order Found');
+        }
+    }
+
+    public function trackingstatus(Request $request, $order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+        $orders = Order::find($decrypted);
+        if ($orders->order_status != "2") {
+            $orders->tracking_msg = $request->input('tracking_msg');
+            $orders->update();
+            return redirect()->back()->with('status', 'Tracking Msg Status Updated');
+        } else {
+            return redirect()->back()->with('status', 'Order is already Cancelled');
+        }
+    }
+
+
+    public function cancelorder(Request $request, $order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+        $orders = Order::find($decrypted);
+        if ($orders->tracking_msg != NULL) {
+            $orders->cancel_reason = $request->input('cancel_reason');
+            $orders->tracking_msg = "Cancelled when " . $orders->tracking_msg;
+            $orders->order_status = "2";
+            $orders->update();
+            return redirect()->back()->with('status', 'Order was Cancelled');
+        } else {
+            return redirect()->back()->with('status', 'Update your tracking Status First');
+        }
+    }
+
+    public function completeorder(Request $request, $order_id)
+    {
+        $decrypted = $this->encrypt_decrypt('decrypt', $order_id);
+        $orders = Order::find($decrypted);
+        if ($orders->tracking_msg != NULL) {
+            if ($orders->order_status != "2") {
+                $orders->tracking_msg = "Completed when " . $orders->tracking_msg;
+                if ($orders->payment_status == "0") {
+                    $orders->payment_status = $request->input('cash_received') == TRUE ? '1' : '0';
+                }
+                $orders->order_status = "1";
+                $orders->update();
+                return redirect()->back()->with('status', 'Order Completed successfully!');
+            } else {
+                return redirect()->back()->with('status', 'Your Order was Cancelled!');
+            }
+        } else {
+            return redirect()->back()->with('status', 'Update your tracking status First');
+        }
+    }
+
 
 }

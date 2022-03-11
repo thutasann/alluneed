@@ -230,6 +230,37 @@ Route::group(['middleware' => ['auth', 'isVendor']], function () {
 
 
     // Customers
+    Route::get('vendor/customers', 'App\Http\Controllers\Vendor\VendorDashboardController@customers');
+
 
     // Order management
+    Route::get('vendor/orders', 'App\Http\Controllers\Vendor\VendorDashboardController@orders');
+    Route::get('v/order-view/{id}', 'App\Http\Controllers\Vendor\VendorDashboardController@vieworder');
+    Route::get('v/generate-invoice/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@generateinvoice');
+    Route::get('v/order-proceed/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@proceedorder');
+
+    Route::put('v/order/update-tracking-status/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@trackingstatus');
+    Route::put('v/order/cancel-order/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@cancelorder');
+    Route::put('v/order/complete-order/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@completeorder');
+
+    // proceed shipping
+
+
+
+    // Branch Management
+    Route::get('/vendor/branches', 'App\Http\Controllers\Vendor\BranchController@branchindex');
+    Route::get('vendor/add-branch', 'App\Http\Controllers\Vendor\BranchController@addbranch');
+    Route::post('vendor/branch-store', 'App\Http\Controllers\Vendor\BranchController@storebranch');
+    Route::get('v/branch-edit/{id}/{name}', 'App\Http\Controllers\Vendor\BranchController@edit');
+    Route::put('v/branch-update/{id}', 'App\Http\Controllers\Vendor\BranchController@update');
+
+
+    // vendor/shipping-teams
+    Route::get('vendor/shipping-teams', 'App\Http\Controllers\Vendor\ShippingTeamController@index');
+    Route::get('vendor/add-shipping-team', 'App\Http\Controllers\Vendor\ShippingTeamController@addteam');
+    Route::post('vendor/shipping-team-store', 'App\Http\Controllers\Vendor\ShippingTeamController@storeteam');
+    Route::get('v/deli-team-edit/{id}/{name}', 'App\Http\Controllers\Vendor\ShippingTeamController@edit');
+    Route::put('v/team-update/{id}', 'App\Http\Controllers\Vendor\ShippingTeamController@update');
+
+
 });

@@ -138,6 +138,9 @@
     <!-- Datatable JS -->
     <script type="text/javascript" src="{{ asset('assets/js/data_table.js') }}"></script>
 
+     <!-- Autocomplete Country JS -->
+    <script type="text/javascript" src="{{ asset('assets/js/auto-complete.js') }} "></script>
+
     {{-- Select 2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>

@@ -67,7 +67,10 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Manage Orders:</h6>
-                <a class="collapse-item" href="{{ url('vendor/orders') }}">All Orders</a>
+                <a class="collapse-item" href="{{ url('vendor/orders') }}">Manage Orders</a>
+                <a class="collapse-item" href="{{ url('vendor/branches') }}">Manage Branches</a>
+                <a class="collapse-item" href="{{ url('vendor/shipping-teams') }}">Manage Shipping teams</a>
+
             </div>
         </div>
     </li>

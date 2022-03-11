@@ -40,6 +40,7 @@
                     </a>
                 </div>
 
+
                 <!-- Groups (without trash) -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <a href="{{ url('/group') }}">
@@ -48,7 +49,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Groups</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($groups) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-th-list fa-2x text-gray-300"></i>
@@ -67,7 +68,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Categories</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">90</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($categories) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-copyright fa-2x text-gray-300"></i>
@@ -86,7 +87,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Sub-Categories (Brands)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($subcategories) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-th fa-2x text-gray-300"></i>
@@ -105,7 +106,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Products (Items)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($products) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fab fa-product-hunt fa-2x text-gray-300"></i>
@@ -124,7 +125,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Orders (All)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">34</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($orders) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-truck fa-2x text-gray-300"></i>
@@ -143,7 +144,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Coupons (All)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">40</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($coupons) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-gift fa-2x text-gray-300"></i>
@@ -162,7 +163,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Sliders (Ads)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">59</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($sliders) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-ad fa-2x text-gray-300"></i>

@@ -1,7 +1,7 @@
 @extends('layouts.vendor')
 
 @section('title')
-	Vendor Home
+	Vendor Dashboard
 @endsection
 
 @section('content')
@@ -28,7 +28,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Products (Items)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($products) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fab fa-product-hunt fa-2x text-gray-300"></i>
@@ -47,7 +47,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ads</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">4</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($sliders) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-ad fa-2x text-gray-300"></i>
@@ -66,7 +66,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Coupons (All)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($coupons) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-gift fa-2x text-gray-300"></i>
@@ -85,7 +85,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Orders (All)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($orderitems) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-truck fa-2x text-gray-300"></i>

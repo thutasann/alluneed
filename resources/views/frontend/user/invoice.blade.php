@@ -144,6 +144,7 @@
                             <th>No.</th>
                             <th>Item</th>
                             <th>Image</th>
+                            <th>Seller Name</th>
                             <th>Price</th>
                             <th>Qty</th>
                             <th>Total</th>
@@ -158,6 +159,7 @@
 
                             @php
                                 $itemno = $itemno +1;
+                                $vendor = App\Models\Models\Request_vendor::where('user_id', $i->vendor_id)->get(); // For displaying vendor name
                             @endphp
 
                             <tr>
@@ -165,9 +167,14 @@
                                 <td data-title="Item">{{$i->products->name}}</td>
                                 <td data-title="Image" class="cart-image">
                                     <a class="entry-thumbnail" href="{{url('collection/'.$i->products->subcategory->category->group->url.'/'.$i->products->subcategory->category->url.'/'.$i->products->subcategory->url.'/'.$i->products->url.'/'.Crypt::encrypt($i->products->id)) }}">
-                                        <img src="{{ asset('uploads/products/'.$i->products->prod_image) }}" width="70" class="img-fluid rounded shadow-sm">
+                                        <img src="{{ asset('uploads/products/prod/'.$i->products->prod_image) }}" width="70" class="img-fluid rounded shadow-sm">
                                     </a>
                                 </td>
+                                @foreach ($vendor as $vname)
+                                    <td data-title="Seller Name">
+                                        {{$vname->vendor_name}}
+                                    </td>
+                                @endforeach
                                 <td data-title="Price">${{ number_format($i->price, 2) }}</td>
                                 <td data-title="Qty">{{$i->quantity}}</td>
                                 <td data-title="Total">${{ number_format($i->price * $i->quantity, 2) }}</td>

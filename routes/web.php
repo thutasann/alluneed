@@ -244,6 +244,7 @@ Route::group(['middleware' => ['auth', 'isVendor']], function () {
     Route::put('v/order/complete-order/{order_id}', 'App\Http\Controllers\Vendor\VendorDashboardController@completeorder');
 
     // proceed shipping
+    Route::post('/v/proceed-shipping/{id}', 'App\Http\Controllers\Vendor\VendorDashboardController@proceedshipping');
 
 
 

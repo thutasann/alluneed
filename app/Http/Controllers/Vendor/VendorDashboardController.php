@@ -9,6 +9,7 @@ use App\Models\Models\Coupon;
 use App\Models\Models\DeliTeam;
 use App\Models\Models\Order;
 use App\Models\Models\Orderitem;
+use App\Models\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -112,6 +113,7 @@ class VendorDashboardController extends Controller
             $deliteams = DeliTeam::where('status', '!=', '2')->where('vendor_id', $user_id)->get(); // 0 = free, 1 = unavailable , 2 delete
             $orders = Order::find($decrypted);
             return view('vendor.orders.proceed')->with('orders', $orders)->with('deliteams', $deliteams);
+
         } else {
             return redirect()->back()->with('status', 'No Order Found');
         }
@@ -165,6 +167,36 @@ class VendorDashboardController extends Controller
         } else {
             return redirect()->back()->with('status', 'Update your tracking status First');
         }
+    }
+
+    public function proceedshipping(Request $request, $id)
+    {
+
+        // shipping status => 0 = default, 1 = on shipping, 2 = received
+
+        $vendor_id = Auth::user()->id;
+        $order_id = $id;
+        $tracking_no = rand(1111, 9999);
+
+        $shipping = new Shipping();
+        $shipping->shipping_tracking_no = 'aun_shipping'. $tracking_no;
+        $shipping->shipping_date = $request->input('shipping_date');
+        $shipping->vendor_id = $vendor_id;
+        $shipping->team_id = $request->input('team_id');
+        $shipping->order_id = $order_id;
+
+        $shipping->update();
+
+        $deliteam = DeliTeam::find($request->input('team_id'));
+        $deliteam->status = 1;
+        $deliteam->update();
+
+        $order = Order::find($order_id);
+        $order->order_status = 3; // proceeded shipping
+        $order->update();
+
+        return redirect()->back()->with('status', 'Shipping was proceeded succcessfully!');
+
     }
 
 

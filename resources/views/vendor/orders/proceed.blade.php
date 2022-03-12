@@ -266,7 +266,7 @@
                                                     <a href="javascript:void(0)" data-toggle="modal" data-target="#CompleteOrderModal" class="btn bg-gradient-primary text-white">
                                                         Proceed to finish this order
                                                     </a>
-                                                @elseif($orders->order_status == "1")
+                                                @elseif($orders->order_status == "1"  || $orders->order_status == "3")
                                                     <span class="text-success font-weight-bold">Order Completed !</span>
                                                 @elseif($orders->order_status == "2")
                                                     <span class="text-danger font-weight-bold">Order Cancelled! So, You are Not allowed to complete this order.</span>
@@ -289,6 +289,8 @@
                                     <span class="text-danger mt-2 font-weight-bold">Proceed the order first!</span>
                                 @elseif($orders->order_status == "2")
                                     <span class="text-danger mt-2 font-weight-bold">Order Cancelled! So, You are Not allowed to proceed this shipping.</span>
+                                @elseif($orders->order_status == "3")
+                                    <span class="text-success mt-2 font-weight-bold">Shipping was proceeded!</span>
                                 @elseif($orders->order_status == "1")
 
                                     <h5 class="text-dark mb-3 mt-2 font-weight-bold">
@@ -300,7 +302,7 @@
 
                                     <div class="row">
 
-                                        <div class="col-xl-6 col-md-6 mb-4">
+                                        <div class="col-xl-4 col-md-6 mb-4">
                                             <div class="card shadow-sm border-left-success h-100 py-2">
                                                 <div class="card-body">
                                                     <div class="row no-gutters align-items-center">
@@ -319,7 +321,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-6 col-md-6 mb-4">
+                                        <div class="col-xl-4 col-md-6 mb-4">
                                             <div class="card shadow-sm border-left-success h-100 py-2">
                                                 <div class="card-body">
                                                     <div class="row no-gutters align-items-center">
@@ -328,6 +330,25 @@
                                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
                                                                 @if($orders->user->country)
                                                                 {{ $orders->user->country }}
+                                                                @else
+                                                                ---
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 mb-4">
+                                            <div class="card shadow-sm border-left-success h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Phone</div>
+                                                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                                @if($orders->user->phone)
+                                                                <a href='tel:{{$orders->user->phone}}'>{{$orders->user->phone}}</a>
                                                                 @else
                                                                 ---
                                                                 @endif
@@ -440,9 +461,13 @@
                                         Choose Shipping Team to proceed shipping
                                     </h5>
 
+                                    {{-- Shipping proceed form --}}
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <form action="{{ url('vendor/proceed-shipping') }}" method="POST">
+                                            <form action="{{ url('v/proceed-shipping/'.$orders->id) }}" method="POST">
+                                                {{ csrf_field() }}
+
+                                                <input name="shipping_date" type="hidden" value="{{ Carbon\Carbon::now()->format('m/d/Y') }}" />
 
                                                 <div class="form-group">
                                                     <select name="team_id" class="form-control" required>
@@ -450,9 +475,7 @@
                                                         @foreach($deliteams as $i)
                                                             <option value="{{ $i->id }}">
                                                                 {{ $i->name }}
-                                                                <span class="text-primary">
-                                                                    [ {{ $i->schedule }} ]
-                                                                </span>
+                                                                [ {{ $i->schedule }} ]
                                                             </option>
                                                         @endforeach
                                                     </select>
